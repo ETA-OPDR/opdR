@@ -1,0 +1,15 @@
+Package: opdR
+Type: Package
+Title: A Collection of Functions and Tools for Doing Data Analyses in ETA-OPDR
+Version: 0.1.0
+Author: Kevin Reuss
+Maintainer: Kevin Reuss <reuss.kevin.l@dol.gov>
+Description: 
+    This package contains a variety of tools to make a lot of tasks in various projects either. In general, it includes functions and resources that are likely to be useful for multiple projects. Items will be continuously added to this package as they are identified.
+    The current scope of this project includes the following items:
+    functions for copying files to and from Team SharePoint locations
+		functions for creating state maps
+		reference datasets
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true

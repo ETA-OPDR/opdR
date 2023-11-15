@@ -1,5 +1,5 @@
 library(tidyverse)
-library(openxlsx)
+library(openxlsx2)
 library(here)
 
 
@@ -50,7 +50,7 @@ create_anonymous_files <- function(files_dir, year, product){
     class(file_info$DOL_website_link)<-"hyperlink" # mark as a hyperlink
     wb_path <- here::here("reports", "state_file_info.xlsx")
 
-    wb <- loadWorkbook(wb_path)
+    wb <- wb_load(wb_path)
     current_sheets <- getSheetNames(wb_path)
     sheet_name <- paste0("PY", year, "_files")
 

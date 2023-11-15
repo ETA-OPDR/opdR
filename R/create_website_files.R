@@ -4,7 +4,7 @@ library(here)
 
 
 
-
+# This function creates anonymous files for the DOL website and a spreedsheet with the file/link info.
 create_anonymous_files <- function(files_dir, year, product){
 
   file_dir <- paste0(files_dir, "/", year)

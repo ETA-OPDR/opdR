@@ -33,7 +33,7 @@ copy_to_DASP <- function(x){
 
       if(date_x > date_sp){
         if (!dir.exists(sp_archive)){
-          dir.create(sp_archive)
+          dir.create(sp_archive, recursive = TRUE)
         }
         file.copy(sp, sp_newname, overwrite = TRUE)
         cat("There is an old file at the SharePoint loaction. That file was movied to the /archive subdirectory.")
@@ -41,7 +41,7 @@ copy_to_DASP <- function(x){
         cat("The file was copied to SharePoint.")
       } else{
         if (!dir.exists(sp_created)){
-          dir.create(sp_created)
+          dir.create(sp_created, recursive = TRUE)
         }
         cat("The file at the SharePoint location is a more recent file. As a result, the file was not copied to the /created subdirectory.")
         file.copy(x, x_newname, overwrite = TRUE)

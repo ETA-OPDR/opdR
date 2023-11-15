@@ -5,13 +5,40 @@ library(stringr)
 library(lubridate)
 library(tools)
 
+
+
+# This function creates the SharePoint office path
+get_main_SP_directory <- function(office){
+  user <- Sys.info()[["user"]]
+  main_dir <- paste0("C:/Users/", user, "/US Department of Labor - DOL/")
+  if (office == "DASP") {
+    sp_dir <- paste0(main_dir, "T-ETA-OPDR-DASP - Documents/Data Analytics/")
+    return(sp_dir)
+  } else if (office == "DP") {
+    sp_dir <- paste0(main_dir, "T-ETA-ODPR-Data Team - Documents/")
+    return(sp_dir)
+  } else {
+    cat("The office needs to be specified using the office argument for this function \ne.g., get_main_SP_directory(office = DASP) \nCurrent options include: DASP or DP. \nIf your office is not included please contact reuss.kevin.l@dol.gov to get your office location added.")
+  }
+}
+
+
+
 # This function copies a file from the users local project to the related SharePoint location
 # The only argument is the file path of the original
-copy_to_DASP <- function(x){
-  user <- Sys.info()[["user"]]
-  project_path <- str_extract(x, "Projects.*")
-  sp_dir <- paste0("C:/Users/", user, "/US Department of Labor - DOL/T-ETA-OPDR-DASP - Data Analytics/")
+copy_to_SP <- function(file_path, office, select_project = "current"){
+  x <- file_path
+
+  if (select_project == "current"){
+    project_path <- str_extract(x, "Projects.*")
+  } else {
+    select_file <- basename(x)
+    project_path <- paste0("Projects/", select_project, "/", select_file)
+  }
+
+  sp_dir <- get_main_SP_directory(office)
   sp <- paste0(sp_dir, project_path)
+
   sp_short <- dirname(sp)
   sp_archive <- paste0(sp_short, "/archive/")
   sp_created <- paste0(sp_short, "/created/")
@@ -48,6 +75,5 @@ copy_to_DASP <- function(x){
       }
   }
 }
-
 
 

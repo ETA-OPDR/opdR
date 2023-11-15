@@ -40,7 +40,7 @@ render_state_assessments = function(product_template, template_dir, year, select
 
     cat(paste0("\nGenerating assessment for ", state, "..."))
 
-    output_filename <- paste0(state, "_WIOA_Performance_Assessment_PY", year, ".html")
+    output_filename <- paste0(state, "_PY_", year, "_WIOA_Performance_Assessment.html")
 
     rmarkdown::render(
       rmd_file,

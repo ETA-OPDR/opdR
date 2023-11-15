@@ -70,7 +70,6 @@ create_anonymous_files <- function(files_dir, year, product){
     }
 
     copy_to_SP(wb_path, office = select_office)
-
 }
 
 

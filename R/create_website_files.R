@@ -4,7 +4,7 @@ library(here)
 
 
 
-# This function creates anonymous files for the DOL website and a spreedsheet with the file/link info.
+# This function creates anonymous files for the DOL website and a spreadsheet with the file/link info.
 create_anonymous_files <- function(files_dir, year, product){
 
   file_dir <- paste0(files_dir, "/", year)
@@ -27,9 +27,9 @@ create_anonymous_files <- function(files_dir, year, product){
 
     file.copy(flist$value, flist$newfile)
 
-    if(product = "state_equity") {
+    if(product == "state_equity") {
       drupal_location <- "DASP/state_equity/"
-    } else if(product = "state_assessments") {
+    } else if(product == "state_assessments") {
       drupal_location <- "DoP/WIOA_Annual_Reports/"
     } else {
       cat("No product was identified. \nThe product argument (i.e., product = ) must be indicated. \nThis function currently supports the following products: state_equity, state_assessments \nTo get your product added contact reuss.kevin.l@dol.gov")
@@ -61,9 +61,9 @@ create_anonymous_files <- function(files_dir, year, product){
     writeData(wb, sheet_name, file_info)
     saveWorkbook(wb, wb_path, overwrite = TRUE)
 
-    if(product = "state_equity") {
+    if(product == "state_equity") {
       select_office <- "DASP"
-    } else if(product = "state_assessments") {
+    } else if(product == "state_assessments") {
       select_office <- "DP"
     } else {
       cat("Error in identifying the office. \nTo get your product added contact reuss.kevin.l@dol.gov")

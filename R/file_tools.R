@@ -77,7 +77,6 @@ copy_to_SP <- function(file_path, office, select_project = "current"){
 }
 
 
-
 copy_dir_to_SP <- function(dir_path, office, select_project = "current"){
   x <- dir_path
   if (select_project == "current"){
@@ -88,10 +87,8 @@ copy_dir_to_SP <- function(dir_path, office, select_project = "current"){
 
   sp_dir <- get_main_SP_directory(office)
   sp <- paste0(sp_dir, project_path)
-  sp_short <- dirname(sp)
 
-  target_dir <- str_extract(x, paste0(select_project, ".*"))
-  new_folder <- paste0(sp_short, "/", target_dir)
+  new_folder <- paste0(sp_dir, "/", project_path)
   if (!dir.exists(new_folder)){
     dir.create(new_folder, recursive = TRUE)
   }

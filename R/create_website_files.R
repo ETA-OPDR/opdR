@@ -8,7 +8,7 @@ library(here)
 create_anonymous_files <- function(files_dir, year, product){
 
   file_dir <- paste0(files_dir, "/", year)
-  output_dir <- paste0(file_dir, "/anonymous")
+  output_dir <- paste0(file_dir, "/anonymous/")
 
   if (!dir.exists(output_dir)){
     dir.create(output_dir)
@@ -37,6 +37,7 @@ create_anonymous_files <- function(files_dir, year, product){
   } else {
     cat("No product was identified. \nThe product argument (i.e., product = ) must be indicated. \nThis function currently supports the following products: state_equity, state_assessments \nTo get your product added contact reuss.kevin.l@dol.gov")
   }
+
 
   copy_dir_to_SP(dir_path = output_dir, office = select_office)
 

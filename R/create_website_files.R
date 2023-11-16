@@ -30,15 +30,15 @@ create_anonymous_files <- function(files_dir, year, product){
 
   if(product == "state_equity") {
     drupal_location <- "DASP/state_equity/"
-    office <- "DASP"
+    select_office <- "DASP"
   } else if(product == "state_assessments") {
     drupal_location <- "DoP/WIOA_Annual_Reports/"
-    office <- "DP"
+    select_office <- "DP"
   } else {
     cat("No product was identified. \nThe product argument (i.e., product = ) must be indicated. \nThis function currently supports the following products: state_equity, state_assessments \nTo get your product added contact reuss.kevin.l@dol.gov")
   }
 
-  copy_dir_to_SP(dir_path, office)
+  copy_dir_to_SP(dir_path = output_dir, office = select_office)
 
   file_info <- flist |>
     mutate(program_year = year,

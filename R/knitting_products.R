@@ -2,7 +2,7 @@
 library(tidyverse)
 
 
-# This function gnerates all the state performance assessments.
+# This function generates all the state performance assessments.
 render_state_assessments = function(product_template, template_dir, year, select_states = "all", exclude_states = "none") {
 
   states <- state_info |>

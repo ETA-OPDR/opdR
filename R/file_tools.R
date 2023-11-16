@@ -26,14 +26,14 @@ get_main_SP_directory <- function(office){
 
 # This function copies a file from the users local project to the related SharePoint location
 # The only argument is the file path of the original
-copy_to_SP <- function(file_path, office, select_project = "current"){
+copy_to_SP <- function(file_path, office, project_location = "mirror"){
   x <- file_path
 
-  if (select_project == "current"){
+  if (project_location == "mirror"){
     project_path <- stringr::str_extract(x, "Projects.*")
   } else {
     select_file <- basename(x)
-    project_path <- paste0("Projects/", select_project, "/", select_file)
+    project_path <- paste0("Projects/", project_location, "/", select_file)
   }
 
   sp_dir <- get_main_SP_directory(office)
@@ -77,16 +77,15 @@ copy_to_SP <- function(file_path, office, select_project = "current"){
 }
 
 
-copy_dir_to_SP <- function(dir_path, office, select_project = "current"){
+copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
   x <- dir_path
-  if (select_project == "current"){
+  sp_dir <- get_main_SP_directory(office)
+
+  if (project_location == "mirror"){
     project_path <- str_extract(x, "Projects.*")
   } else {
-    project_path <- paste0("Projects/", select_project, "/")
+    project_path <- paste0("Projects/", project_location, "/")
   }
-
-  sp_dir <- get_main_SP_directory(office)
-  sp <- paste0(sp_dir, project_path)
 
   new_folder <- paste0(sp_dir, "/", project_path)
   if (!dir.exists(new_folder)){

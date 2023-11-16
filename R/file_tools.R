@@ -55,8 +55,8 @@ copy_to_SP <- function(file_path, office, project_location = "mirror"){
   } else {
       date_x <- file.info(x)$mtime
       date_sp <- file.info(sp)$mtime
-      x_newname <- paste0(tools::file_path_sans_ext(sp_created_file), "_", year(file.info(x)$mtime), month(file.info(x)$mtime), day(file.info(x)$mtime), ".", file_ext(x))
-      sp_newname <- paste0(tools::file_path_sans_ext(sp_archive_file), "_", year(file.info(sp)$mtime), month(file.info(sp)$mtime), day(file.info(sp)$mtime), ".", file_ext(sp))
+      x_newname <- paste0(tools::file_path_sans_ext(sp_created_file), "_", lubridate::year(file.info(x)$mtime), lubridate::month(file.info(x)$mtime), lubridate::day(file.info(x)$mtime), ".", file_ext(x))
+      sp_newname <- paste0(tools::file_path_sans_ext(sp_archive_file), "_", lubridate::year(file.info(sp)$mtime), lubridate::month(file.info(sp)$mtime), lubridate::day(file.info(sp)$mtime), ".", file_ext(sp))
 
       if(date_x > date_sp){
         if (!dir.exists(sp_archive)){

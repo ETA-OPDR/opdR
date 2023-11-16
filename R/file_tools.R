@@ -53,10 +53,10 @@ copy_to_SP <- function(file_path, office, select_project = "current"){
     file.copy(x, sp, overwrite = TRUE)
     cat("The file was copied to SharePoint.")
   } else {
-      date_x <- file.info(x)$atime
-      date_sp <- file.info(sp)$atime
-      x_newname <- paste0(file_path_sans_ext(sp_created_file), "_", year(file.info(x)$atime), month(file.info(x)$atime), day(file.info(x)$atime), ".", file_ext(x))
-      sp_newname <- paste0(file_path_sans_ext(sp_archive_file), "_", year(file.info(sp)$atime), month(file.info(sp)$atime), day(file.info(sp)$atime), ".", file_ext(sp))
+      date_x <- file.info(x)$mtime
+      date_sp <- file.info(sp)$mtime
+      x_newname <- paste0(file_path_sans_ext(sp_created_file), "_", year(file.info(x)$mtime), month(file.info(x)$mtime), day(file.info(x)$mtime), ".", file_ext(x))
+      sp_newname <- paste0(file_path_sans_ext(sp_archive_file), "_", year(file.info(sp)$mtime), month(file.info(sp)$mtime), day(file.info(sp)$mtime), ".", file_ext(sp))
 
       if(date_x > date_sp){
         if (!dir.exists(sp_archive)){

@@ -27,13 +27,18 @@ create_anonymous_files <- function(files_dir, year, product){
 
   file.copy(flist$value, flist$newfile, overwrite = TRUE)
 
+
   if(product == "state_equity") {
     drupal_location <- "DASP/state_equity/"
+    office <- "DASP"
   } else if(product == "state_assessments") {
     drupal_location <- "DoP/WIOA_Annual_Reports/"
+    office <- "DP"
   } else {
     cat("No product was identified. \nThe product argument (i.e., product = ) must be indicated. \nThis function currently supports the following products: state_equity, state_assessments \nTo get your product added contact reuss.kevin.l@dol.gov")
   }
+
+  copy_dir_to_SP(dir_path, office)
 
   file_info <- flist |>
     mutate(program_year = year,
@@ -63,9 +68,9 @@ create_anonymous_files <- function(files_dir, year, product){
   current_sheets <- getSheetNames(wb_path)
   sheet_name <- paste0("PY", year, "_files")
 
-  # if (!sheet_name %in% current_sheets) {
-  #   addWorksheet(wb, sheetName = sheet_name)
-  # }
+  if (!sheet_name %in% current_sheets) {
+    addWorksheet(wb, sheetName = sheet_name)
+  }
 
   writeData(wb, sheet_name, file_info)
 
@@ -76,14 +81,6 @@ create_anonymous_files <- function(files_dir, year, product){
   }
 
   saveWorkbook(wb, wb_path, overwrite = TRUE)
-
-  if(product == "state_equity") {
-    select_office <- "DASP"
-  } else if(product == "state_assessments") {
-    select_office <- "DP"
-  } else {
-    cat("Error in identifying the office. \nTo get your product added contact reuss.kevin.l@dol.gov")
-  }
 
   copy_to_SP(wb_path, office = select_office)
 }

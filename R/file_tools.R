@@ -63,7 +63,7 @@ copy_to_SP <- function(file_path, office, select_project = "current"){
           dir.create(sp_archive, recursive = TRUE)
         }
         file.copy(sp, sp_newname, overwrite = TRUE)
-        cat("There is an old file at the SharePoint loaction. That file was movied to the /archive subdirectory.")
+        cat("There is an old file at the SharePoint location. That file was movied to the /archive subdirectory.")
         file.copy(x, sp, overwrite = TRUE)
         cat("The file was copied to SharePoint.")
       } else{
@@ -74,6 +74,33 @@ copy_to_SP <- function(file_path, office, select_project = "current"){
         file.copy(x, x_newname, overwrite = TRUE)
       }
   }
+}
+
+
+
+copy_dir_to_SP <- function(dir_path, office, select_project = "current"){
+  x <- dir_path
+  if (select_project == "current"){
+    project_path <- str_extract(x, "Projects.*")
+  } else {
+    project_path <- paste0("Projects/", select_project, "/")
+  }
+
+  sp_dir <- get_main_SP_directory(office)
+  sp <- paste0(sp_dir, project_path)
+  sp_short <- dirname(sp)
+
+  target_dir <- str_extract(x, paste0(select_project, ".*"))
+  new_folder <- paste0(sp_short, "/", target_dir)
+  if (!dir.exists(new_folder)){
+    dir.create(new_folder, recursive = TRUE)
+  }
+
+  file.copy(from = paste0(x, list_of_files),
+            to = paste0(new_folder, list_of_files),
+            overwrite = TRUE)
+
+  cat("The directory was copied to SharePoint.")
 }
 
 

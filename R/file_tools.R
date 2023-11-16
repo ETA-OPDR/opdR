@@ -96,6 +96,7 @@ copy_dir_to_SP <- function(dir_path, office, select_project = "current"){
     dir.create(new_folder, recursive = TRUE)
   }
 
+  list_of_files <- list.files(x)
   file.copy(from = paste0(x, list_of_files),
             to = paste0(new_folder, list_of_files),
             overwrite = TRUE)

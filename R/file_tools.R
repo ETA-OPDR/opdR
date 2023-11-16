@@ -30,7 +30,7 @@ copy_to_SP <- function(file_path, office, select_project = "current"){
   x <- file_path
 
   if (select_project == "current"){
-    project_path <- str_extract(x, "Projects.*")
+    project_path <- stringr::str_extract(x, "Projects.*")
   } else {
     select_file <- basename(x)
     project_path <- paste0("Projects/", select_project, "/", select_file)

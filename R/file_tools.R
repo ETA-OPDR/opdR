@@ -31,7 +31,7 @@ copy_to_SP <- function(file_path, office, project_location = "mirror"){
 
   if (project_location == "mirror"){
     project_path <- stringr::str_extract(x, "Projects.*")
-  } else {
+  } else if(project_location != "mirror") {
     select_file <- basename(x)
     project_path <- paste0("Projects/", project_location, "/", select_file)
   }

@@ -3,7 +3,7 @@ library(tidyverse)
 
 
 # This function generates all the state performance assessments.
-render_state_assessments = function(product_template, template_dir, year, select_states = "all", exclude_states = "none") {
+render_state_assessments = function(product_template, template_dir, year, select_states = "all", exclude_states = "none", copy_file = TRUE) {
 
   states <- state_info |>
     rename(state_name = Name, state_code = Alpha_code)
@@ -53,20 +53,25 @@ render_state_assessments = function(product_template, template_dir, year, select
     )
 
     cat("Completed")
-    cat(paste0("\nCopying the assessment for", state, " to the SharePoint project folder..."))
+    cat("The document is in the the reports/{year} folder of the project directory.")
 
-    assessment_file <- paste0(output_dir, "/", output_filename)
+    if (copy_file = TRUE) {
+      cat(paste0("\nCopying the assessment for", state, " to the SharePoint project folder..."))
 
-    copy_to_SP(assessment_file, office = "DP")
+      assessment_file <- paste0(output_dir, "/", output_filename)
 
-    cat("Completed")
+      copy_to_SP(assessment_file, office = "DP")
+
+      cat("Completed")
+    }
+
   }
 }
 
 
 
 #This function generates all the (or those selected) state equity reports
-render_state_equity = function(product_template, template_dir, year, data_used, select_states = "all", exclude_states = "none", program) {
+render_state_equity = function(product_template, template_dir, year, data_used, select_states = "all", exclude_states = "none", program, copy_file = TRUE) {
 
   states <- state_info |>
     rename(state_name = Name, state_code = Alpha_code)
@@ -118,13 +123,18 @@ render_state_equity = function(product_template, template_dir, year, data_used, 
     )
 
     cat("Completed")
-    cat(paste0("\nCopying the report for", state, " to the SharePoint project folder..."))
+    cat("The document is in the the reports/{year} folder of the project directory.")
 
-    equity_file <- paste0(output_dir, "/", output_filename)
+    if (copy_file = TRUE) {
+      cat(paste0("\nCopying the report for", state, " to the SharePoint project folder..."))
 
-    copy_to_SP(equity_file, office = "DASP")
+      equity_file <- paste0(output_dir, "/", output_filename)
 
-    cat("Completed")
+      copy_to_SP(equity_file, office = "DASP")
+
+      cat("Completed")
+    }
+
   }
 
 }

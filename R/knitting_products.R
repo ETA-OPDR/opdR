@@ -2,7 +2,10 @@
 library(tidyverse)
 
 # This function generates all the state reports from a template file
-render_state_documents = function(product, product_template, template_dir, year, select_states = "all", exclude_states = "none", copy_file = TRUE, custom_write_dir = FALSE) {
+render_state_documents = function(product, product_template, template_dir, year,
+                                  select_states = "all", exclude_states = "none",
+                                  copy_file = TRUE, custom_write_dir = FALSE,
+                                  program_type = FALSE, data_used = FALSE) {
 
   states <- state_info |>
     rename(state_name = Name, state_code = Alpha_code)
@@ -47,27 +50,50 @@ render_state_documents = function(product, product_template, template_dir, year,
       output_filename <- paste0(state, "_PY_", year, "_WIOA_Performance_Assessment.html")
       product_office <- "DP"
 
+      rmarkdown::render(
+        rmd_file,
+        output_dir = output_dir,
+        params = list(
+          region = state,
+          region_name = state_name,
+          program_year = year),
+        output_file = output_filename
+      )
+
+
     } else if (product == "equity") {
       cat(paste0("\nGenerating equity report for ", state, "..."))
       output_filename <- paste0(state, "_PY", year, "_Equity_Report.html")
       product_office <- "DASP"
 
+      rmarkdown::render(
+        rmd_file,
+        output_dir = output_dir,
+        params = list(
+          region = state,
+          region_name = state_name,
+          program_year = year,
+          program_name = program_type,
+          data_type = data_used),
+        output_file = output_filename
+      )
+
     } else if (product == "model_summary") b{
       cat(paste0("\nGenerating model summary for ", state, "..."))
       output_filename <- paste0(state, "_PY", year, "_Model_Summary.html")
       product_office <- "DP"
+
+      rmarkdown::render(
+        rmd_file,
+        output_dir = output_dir,
+        params = list(
+          region = state,
+          region_name = state_name,
+          program_year = year),
+        output_file = output_filename
+      )
+
     }
-
-
-    rmarkdown::render(
-      rmd_file,
-      output_dir = output_dir,
-      params = list(
-        region = state,
-        region_name = state_name,
-        program_year = year),
-      output_file = output_filename
-    )
 
     cat("Completed")
     cat("The document is in the the reports/{year} folder of the project directory.")

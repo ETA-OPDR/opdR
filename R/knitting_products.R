@@ -78,7 +78,7 @@ render_state_documents = function(product, product_template, template_dir, year,
         output_file = output_filename
       )
 
-    } else if (product == "model_summary") b{
+    } else if (product == "model_summary") {
       cat(paste0("\nGenerating model summary for ", state, "..."))
       output_filename <- paste0(state, "_PY", year, "_Model_Summary.html")
       product_office <- "DP"

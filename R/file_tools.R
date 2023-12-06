@@ -15,7 +15,7 @@ get_main_SP_directory <- function(office){
     sp_dir <- paste0(main_dir, "T-ETA-OPDR-DASP - Documents/Data Analytics/")
     return(sp_dir)
   } else if (office == "DP") {
-    sp_dir <- paste0(main_dir, "T-ETA-ODPR-Data Team - Documents/")
+    sp_dir <- paste0(main_dir, "T-ETA-OPDR-Data Team - Documents/")
     return(sp_dir)
   } else {
     cat("The office needs to be specified using the office argument for this function \ne.g., get_main_SP_directory(office = DASP) \nCurrent options include: DASP or DP. \nIf your office is not included please contact reuss.kevin.l@dol.gov to get your office location added.")

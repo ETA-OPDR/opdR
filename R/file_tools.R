@@ -18,7 +18,7 @@ get_main_SP_directory <- function(office){
     sp_dir <- paste0(main_dir, "T-ETA-OPDR-Data Team - Documents/")
     return(sp_dir)
   } else {
-    cat("The office needs to be specified using the office argument for this function \ne.g., get_main_SP_directory(office = DASP) \nCurrent options include: DASP or DP. \nIf your office is not included please contact reuss.kevin.l@dol.gov to get your office location added.")
+    cat("\nThe office needs to be specified using the office argument for this function \ne.g., get_main_SP_directory(office = DASP) \nCurrent options include: DASP or DP. \nIf your office is not included please contact reuss.kevin.l@dol.gov to get your office location added.")
   }
 }
 
@@ -51,7 +51,7 @@ copy_to_SP <- function(file_path, office, project_location = "mirror"){
 
   if(!file.exists(sp)){
     file.copy(x, sp, overwrite = TRUE)
-    cat("The file was copied to SharePoint.")
+    cat("\nThe file was copied to SharePoint.")
   } else {
       date_x <- file.info(x)$mtime
       date_sp <- file.info(sp)$mtime
@@ -63,14 +63,14 @@ copy_to_SP <- function(file_path, office, project_location = "mirror"){
           dir.create(sp_archive, recursive = TRUE)
         }
         file.copy(sp, sp_newname, overwrite = TRUE)
-        cat("There is an old file at the SharePoint location. That file was movied to the /archive subdirectory.")
+        cat("\nThere is an old file at the SharePoint location. That file was movied to the /archive subdirectory.")
         file.copy(x, sp, overwrite = TRUE)
-        cat("The file was copied to SharePoint.")
+        cat("\nThe file was copied to SharePoint.")
       } else{
         if (!dir.exists(sp_created)){
           dir.create(sp_created, recursive = TRUE)
         }
-        cat("The file at the SharePoint location is a more recent file. As a result, the file was not copied to the /created subdirectory.")
+        cat("\nThe file at the SharePoint location is a more recent file. As a result, the file was not copied to the /created subdirectory.")
         file.copy(x, x_newname, overwrite = TRUE)
       }
   }

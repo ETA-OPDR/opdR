@@ -30,7 +30,7 @@ render_state_documents = function(product, product_template, template_dir, year,
 
   for (state in state_list){
     select_state <- states |>
-      filter(state_code == "state")
+      filter(state_code == state)
 
     state_name <- select_state |>
       pull(state_name)

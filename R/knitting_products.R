@@ -29,10 +29,18 @@ render_state_documents = function(product, product_template, template_dir, year,
   rmd_file <- paste0(template_dir, "/", product_template)
 
   for (state in state_list){
+    select_state <- states |>
+      filter(state_code == "state")
 
-    state_name <- states$state_name[states$state_code == state]
-    region <- states$Region[states$state_code == state]
-    region_title <- paste0("Region ", region)
+    state_name <- select_state |>
+      pull(state_name)
+
+    select_region <- select_state |>
+      pull(Region)
+
+    # state_name <- states$state_name[states$state_code == state]
+    # region <- states$Region[states$state_code == state]
+    region_title <- paste0("Region ", select_region)
 
     if (custom_write_dir == FALSE) {
       write_dir <- here::here("reports", year, region_title)

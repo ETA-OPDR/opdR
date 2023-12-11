@@ -5,7 +5,7 @@ library(tidyverse)
 render_state_documents = function(product, product_template, template_dir, year,
                                   select_states = "all", exclude_states = "none",
                                   copy_file = TRUE, custom_write_dir = FALSE,
-                                  program_type = FALSE, data_used = FALSE) {
+                                  program_type = FALSE, timing = FALSE,  data_used = FALSE) {
 
   states <- state_info |>
     rename(state_name = Name, state_code = Alpha_code)

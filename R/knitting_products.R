@@ -1,6 +1,22 @@
 # Dependent packages:
 library(tidyverse)
 
+
+# program_year <- 2022
+# template_name <- "State_Assessment_Template_PY2022.Rmd"
+# template_location <- here::here("src", "templates")
+# report_timing <- "ANNUAL"
+# program_year <- 2022
+# year <- 2022
+# product_template <- "State_Assessment_Template_PY2022.Rmd"
+# template_dir <- here::here("src", "templates")
+# report_timing <- "ANNUAL"
+# select_states <- "all"
+# exclude_states <- "none"
+# custom_write_dir = FALSE
+# program_type = FALSE
+# timing = FALSE
+
 # This function generates all the state reports from a template file
 render_state_documents = function(product, product_template, template_dir, year,
                                   select_states = "all", exclude_states = "none",
@@ -29,6 +45,9 @@ render_state_documents = function(product, product_template, template_dir, year,
   rmd_file <- paste0(template_dir, "/", product_template)
 
   for (state in state_list){
+
+    state <- "AL"
+
     select_state <- states |>
       filter(state_code == state)
 
@@ -42,8 +61,10 @@ render_state_documents = function(product, product_template, template_dir, year,
     # region <- states$Region[states$state_code == state]
     region_title <- paste0("Region ", select_region)
 
+    temp_dir <- paste0(year, "/", region_title, "/")
+
     if (custom_write_dir == FALSE) {
-      write_dir <- here::here("reports", year, region_title)
+      write_dir <- here::here("reports", temp_dir)
     } else {
       write_dir <- custom_write_dir
     }

@@ -35,13 +35,13 @@ render_state_documents = function(product, product_template, template_dir, year,
     region_title <- paste0("Region ", region)
 
     if (custom_write_dir == FALSE) {
-      output_dir <- here::here("reports", year, region_title)
+      write_dir <- here::here("reports", year, region_title)
     } else {
-      output_dir <- custom_write_dir
+      write_dir <- custom_write_dir
     }
 
-    if (!dir.exists(output_dir)){
-      dir.create(file.path(output_dir), recursive = TRUE)
+    if (!dir.exists(write_dir)){
+      dir.create(file.path(write_dir), recursive = TRUE)
     }
 
 
@@ -52,7 +52,7 @@ render_state_documents = function(product, product_template, template_dir, year,
 
       rmarkdown::render(
         rmd_file,
-        output_dir = output_dir,
+        output_dir = write_dir,
         params = list(
           region = state,
           region_name = state_name,
@@ -68,7 +68,7 @@ render_state_documents = function(product, product_template, template_dir, year,
 
       rmarkdown::render(
         rmd_file,
-        output_dir = output_dir,
+        output_dir = write_dir,
         params = list(
           region = state,
           region_name = state_name,
@@ -85,7 +85,7 @@ render_state_documents = function(product, product_template, template_dir, year,
 
       rmarkdown::render(
         rmd_file,
-        output_dir = output_dir,
+        output_dir = write_dir,
         params = list(
           region = state,
           region_name = state_name,
@@ -101,7 +101,7 @@ render_state_documents = function(product, product_template, template_dir, year,
     if (copy_file == TRUE) {
       cat(paste0("\nCopying the assessment for", state, " to the SharePoint project folder..."))
 
-      assessment_file <- paste0(output_dir, "/", output_filename)
+      assessment_file <- paste0(write_dir, "/", output_filename)
 
       copy_to_SP(assessment_file, office = product_office)
 

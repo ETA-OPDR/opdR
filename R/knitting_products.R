@@ -8,70 +8,42 @@ render_state_documents = function(product, product_template, template_dir, year,
                                   copy_file = TRUE, custom_write_dir = FALSE,
                                   program_type = FALSE, timing = FALSE,  data_used = FALSE) {
 
-  states <- state_info |>
+  states_df <- state_info |>
     rename(state_name = Name, state_code = Alpha_code)
 
   if (select_states == "all") {
-    state_list <- states$state_code
+    state_list <- states_df$state_code
   } else {
-    states <- states |>
+    states_df <- states_df |>
       filter(state_code %in% select_states)
-    state_list <- states$state_code
+    state_list <- states_df$state_code
   }
 
   if (exclude_states == "none") {
     state_list <- state_list
   } else {
-    states <- states |>
+    states_df <- states_df |>
       filter(!state_code %in% exclude_states)
-    state_list <- states$state_code
+    state_list <- states_df$state_code
   }
 
   rmd_file <- paste0(template_dir, "/", product_template)
 
   for (state in state_list) {
 
-    state_name <- states$state_name[states$state_code == state]
-    region <- states$Region[states$state_code == state]
+    state_name <- states_df$state_name[states_df$state_code == state]
+    region <- states_df$Region[states_df$state_code == state]
     region_title <- paste0("Region ", region)
 
     if (custom_write_dir == FALSE) {
-      output_dir <- here::here("reports", year, region_title)
+      write_dir <- here::here("reports", year, region_title)
     } else {
-      output_dir <- custom_write_dir
+      write_dir <- custom_write_dir
     }
 
-    if (!dir.exists(output_dir)){
-      dir.create(file.path(output_dir), recursive = TRUE)
+    if (!dir.exists(write_dir)){
+      dir.create(file.path(write_dir), recursive = TRUE)
     }
-
-
-    # state_report <- state
-    #
-    # state_df <- states |>
-    #   filter(state_code == state_report)
-    #
-    # state_name <- state_df |>
-    #   pull(state_name)
-    #
-    # region_number <- state_df |>
-    #   pull(Region)
-
-    # state_name <- states$state_name[states$state_code == state]
-    # region_number <- states$Region[states$state_code == state]
-    # region_title <- paste0("Region ", as.character(region_number))
-    #
-    # temp_dir <- paste0(year, "/", region_title, "/")
-    #
-    # if (custom_write_dir == FALSE) {
-    #   write_dir <- here::here("reports", temp_dir)
-    # } else {
-    #   write_dir <- custom_write_dir
-    # }
-    #
-    # if (!dir.exists(write_dir)){
-    #   dir.create(file.path(write_dir), recursive = TRUE)
-    # }
 
 
     if (product == "performance_assessment") {
@@ -136,9 +108,12 @@ render_state_documents = function(product, product_template, template_dir, year,
 
       cat("Completed")
     }
-
   }
 }
+
+
+
+
 # This function generates all the state performance assessments.
 render_state_assessments = function(product_template, template_dir, year, select_states = "all", exclude_states = "none", copy_file = TRUE, custom_write_dir = FALSE) {
 

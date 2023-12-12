@@ -46,19 +46,19 @@ render_state_documents = function(product, product_template, template_dir, year,
 
   for (state in state_list){
 
-    state_report <- state
+    # state_report <- state
 
-    state_df <- states |>
-      filter(state_code == state_report)
+    # state_df <- states |>
+    #   filter(states$state_code == state_report)
+    #
+    # state_name <- state_df |>
+    #   pull(state_name)
+    #
+    # select_region <- state_df |>
+    #   pull(Region)
 
-    state_name <- state_df |>
-      pull(state_name)
-
-    select_region <- state_df |>
-      pull(Region)
-
-    # state_name <- states$state_name[states$state_code == state]
-    # region <- states$Region[states$state_code == state]
+    state_name <- states$state_name[states$state_code == state]
+    region <- states$Region[states$state_code == state]
     region_title <- paste0("Region ", select_region)
 
     temp_dir <- paste0(year, "/", region_title, "/")

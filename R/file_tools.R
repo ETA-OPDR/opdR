@@ -102,16 +102,26 @@ copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
 
 
 
-copy_source_wipr_data <- function(program_years, destination_dir, office) {
+copy_source_wipr_data <- function(program_years, office, destination_dir = here::here("data", "wipr"), source_type = "clean", py_quarter = 4) {
 
   output_dir <- destination_dir
   if (!dir.exists(output_dir)){
     dir.create(output_dir, recursive = TRUE)
   }
 
+  file_quarter <- paste0("Q", py_quarter)
+
+  if (source_type == "clean"){
+    filename_type <- "_SPRA_RAW_CSV.zip"
+    dir_type <- "SPRA/RAW_CSV/"
+  } else if (source_type == "raw") {
+    filename_type <- "_WIPS_RAW_CSV.zip"
+    dir_type <- "WIPS/RAW_CSV/"
+  }
+
   for (program_year in program_years) {
-    wipr_filename <- paste0("PY", program_year, "Q4_SPRA_RAW_CSV.zip")
-    file.copy(from = paste0("S:/PRO/WIOA Performance/WIOA Quarterly Data Files/SPRA/RAW_CSV/", wipr_filename),
+    wipr_filename <- paste0("PY", program_year, file_quarter, filename_type)
+    file.copy(from = paste0("S:/PRO/WIOA Performance/WIOA Quarterly Data Files/", dir_type,  wipr_filename),
               to = output_dir)
 
     cat("\nCopied file for PY", program_year )

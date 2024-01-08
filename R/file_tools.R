@@ -101,3 +101,42 @@ copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
 }
 
 
+
+copy_source_wipr_data <- function(program_years, destination_dir, office) {
+
+  output_dir <- destination_dir
+  if (!dir.exists(output_dir)){
+    dir.create(output_dir, recursive = TRUE)
+  }
+
+  for (program_year in program_years) {
+    wipr_filename <- paste0("PY", program_year, "Q4_SPRA_RAW_CSV.zip")
+    file.copy(from = paste0("S:/PRO/WIOA Performance/WIOA Quarterly Data Files/SPRA/RAW_CSV/", wipr_filename),
+              to = output_dir)
+
+    cat("\nCopied file for PY", program_year )
+    #Unzip the file so a csv can be read. When reading in the file from zip sometimes the full dataset is not being read in due to its size.
+    py_file_path <- paste0(output_dir, "/", wipr_filename)
+    unzip(py_file_path, exdir = output_dir)
+    cat("\nUnzipped file for PY", program_year )
+
+    # Read in the csv file using data.table
+    wipr_filename <- paste0("PY", program_year, "Q4_SPRA_RAW.csv")
+    py_file_csv <- paste0(output_dir, "/", wipr_filename)
+    wipr <- data.table::fread(py_file_csv) |>
+      as_tibble()
+
+    export_parquet_file <- paste0(output_dir, "/PY", program_year, ".parquet")
+    write_parquet(wipr, export_parquet_file)
+    cat("\nSaved parquet file for PY", program_year )
+
+    file.remove(from = py_file_path)
+    file.remove(from = py_file_csv)
+    #Note: sometimes there is an error in removing the file because a connection is still open. Try again later or manually remove
+    cat("\nRemoved old files for PY", program_year)
+
+    copy_to_SP(export_parquet_file, office = office)
+  }
+}
+
+

@@ -35,7 +35,7 @@ consolidate_reporting_state_column <- function(data, program_year) {
 
   return(data)
 
-  cat("\The 'state' column now indicates the reporting state. p3000 and/or p4000 were dropped if present.")
+  cat("\nThe 'state' column now indicates the reporting state. p3000 and/or p4000 were dropped if present.")
 }
 
 
@@ -55,7 +55,7 @@ add_outcome_type_date_variables <- function(program_year) {
   q4_start <<- q2_start %m-% months(6, abbreviate = FALSE)
   q4_roll4_start <<- q2_start %m-% months(6, abbreviate = FALSE) %m-% months(9, abbreviate = FALSE)
 
-  cat("\Added outcome type date variables to the environment.")
+  cat("\nAdded outcome type date variables to the environment.")
 }
 
 

@@ -85,7 +85,9 @@ add_outcome_type_dates <- function(program_year) {
 
 
 generate_program_outcomes <- function(df, period_start, period_end) {
-  cat("Generating outcomes...")
+
+  df <- df
+  cat("\nGenerating outcomes...")
 
   df <- df %>%
     mutate(p1704 = as.numeric(p1704),
@@ -159,7 +161,8 @@ add_general_services_received <- function(data) {
            svc_supportive = ifelse(!is.na(p1409), 1, NA),
            svc_financial_lit = ifelse(!is.na(p1206), 1, NA),
            svc_followup = ifelse(!is.na(p1412), 1, NA)) |>
-    mutate(tsvc2 = ifelse(tsvc2 != 0, 1, 0),
+    mutate(tsvc1 = ifelse(tsvc1 != 0, 1, 0),
+           tsvc2 = ifelse(tsvc2 != 0, 1, 0),
            tsvc3 = ifelse(tsvc3 != 0, 1, 0)) |>
     mutate(highest_svc = case_when(
       tsvc == 1 ~ "tsvc",
@@ -167,7 +170,7 @@ add_general_services_received <- function(data) {
       bcsvc == 1 & is.na(icsvc) & is.na(tsvc) ~ "bcsvc")) |>
     mutate(tsvc_count = tsvc1 + tsvc2 + tsvc3)
 
-  cat("\nAdded columns that show indicate the high level of services recieved by the participant.")
+  cat("\nAdded columns that show indicate the high-level services recieved by the participant.")
   return(data)
 }
 

@@ -1,4 +1,4 @@
-library(opdR)
+
 library(dplyr)
 library(lubridate)
 
@@ -30,76 +30,76 @@ format_zip_code <- function (data, zip_column) {
 
 
 
-# add_state_information <- function(data, source_column, state_id_type, column_name, state_data) {
-#
-#   state_data <- state_data |>
-#     mutate(Numeric_code = str_pad(as.character(Numeric_code), 2, side = "left", pad = "0"))
-#
-#   if (state_id_type == "id") {
-#     state_type <- "Alph"
-#   } else if (state_id_type == "name") {
-#     state_type <- "Name"
-#   } else if (state_id_type == "fips") {
-#     state_type <- "Numeric"
-#   }
-#
-#   column_name <- enquo(column_name)
-#   source_column_temp <- enquo(source_column)
-#   s_col <- data |>
-#     select(!!source_column_temp) |>
-#     rename(temp_col = !!source_column_temp) |>
-#     mutate(temp_col = str_pad(as.character(temp_col), 2, side = "left", pad = "0"))
-#
-#   s_col <- s_col[[1,1]]
-#
-#   if (s_col %in% state_data$Alpha_code) {
-#     cat("\nIdentified the source column as the State ID.")
-#
-#     state_data <- state_data |>
-#       select(Alpha_code, starts_with(state_type))
-#
-#     colname <- colnames(state_data) |> nth(2)
-#
-#     data <- data |>
-#       rename(Alpha_code = !!source_column_temp) |>
-#       left_join(state_data, by = "Alpha_code") |>
-#       rename(!!source_column_temp := Alpha_code) |>
-#       rename(!!column_name := colname)
-#
-#   } else if (s_col %in% state_data$Numeric_code) {
-#     cat("\nIdentified the source column as the State FIPS code.")
-#
-#     state_data <- state_data |>
-#       select(Numeric_code, starts_with(state_type))
-#
-#     colname <- colnames(state_data) |> nth(2)
-#
-#     data <- data |>
-#       rename(Numeric_code = !!source_column_temp) |>
-#       mutate(Numeric_code = str_pad(as.character(Numeric_code), 2, side = "left", pad = "0")) |>
-#       left_join(state_data, by = "Numeric_code") |>
-#       rename(!!source_column_temp := Numeric_code) |>
-#       rename(!!column_name := colname)
-#
-#
-#   } else if (s_col %in% state_data$Name){
-#     cat("\nIdentified the source column as the State full name.")
-#     state_data <- state_data |>
-#       select(Name, starts_with(state_type))
-#
-#     colname <- colnames(state_data) |> nth(2)
-#
-#     data <- data |>
-#       rename(Name = !!source_column_temp) |>
-#       left_join(state_data, by = "Name") |>
-#       rename(!!source_column_temp := Name) |>
-#       rename(!!column_name := colname)
-#
-#   }
-#
-#   cat("\nAdded a column with the State", state_type, ", which is aligned to the", source_column, "in the data.")
-#   return(data)
-# }
+add_state_information <- function(data, source_column, state_id_type, column_name, state_data = state_info) {
+
+  state_data <- state_data |>
+    mutate(Numeric_code = str_pad(as.character(Numeric_code), 2, side = "left", pad = "0"))
+
+  if (state_id_type == "id") {
+    state_type <- "Alph"
+  } else if (state_id_type == "name") {
+    state_type <- "Name"
+  } else if (state_id_type == "fips") {
+    state_type <- "Numeric"
+  }
+
+  column_name <- enquo(column_name)
+  source_column_temp <- enquo(source_column)
+  s_col <- data |>
+    select(!!source_column_temp) |>
+    rename(temp_col = !!source_column_temp) |>
+    mutate(temp_col = str_pad(as.character(temp_col), 2, side = "left", pad = "0"))
+
+  s_col <- s_col[[1,1]]
+
+  if (s_col %in% state_data$Alpha_code) {
+    cat("\nIdentified the source column as the State ID.")
+
+    state_data <- state_data |>
+      select(Alpha_code, starts_with(state_type))
+
+    colname <- colnames(state_data) |> nth(2)
+
+    data <- data |>
+      rename(Alpha_code = !!source_column_temp) |>
+      left_join(state_data, by = "Alpha_code") |>
+      rename(!!source_column_temp := Alpha_code) |>
+      rename(!!column_name := colname)
+
+  } else if (s_col %in% state_data$Numeric_code) {
+    cat("\nIdentified the source column as the State FIPS code.")
+
+    state_data <- state_data |>
+      select(Numeric_code, starts_with(state_type))
+
+    colname <- colnames(state_data) |> nth(2)
+
+    data <- data |>
+      rename(Numeric_code = !!source_column_temp) |>
+      mutate(Numeric_code = str_pad(as.character(Numeric_code), 2, side = "left", pad = "0")) |>
+      left_join(state_data, by = "Numeric_code") |>
+      rename(!!source_column_temp := Numeric_code) |>
+      rename(!!column_name := colname)
+
+
+  } else if (s_col %in% state_data$Name){
+    cat("\nIdentified the source column as the State full name.")
+    state_data <- state_data |>
+      select(Name, starts_with(state_type))
+
+    colname <- colnames(state_data) |> nth(2)
+
+    data <- data |>
+      rename(Name = !!source_column_temp) |>
+      left_join(state_data, by = "Name") |>
+      rename(!!source_column_temp := Name) |>
+      rename(!!column_name := colname)
+
+  }
+
+  cat("\nAdded a column with the State", state_type, ", which is aligned to the", source_column, "in the data.")
+  return(data)
+}
 
 
 

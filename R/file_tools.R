@@ -64,7 +64,7 @@ copy_to_SP <- function(file_path, office, project_location = "mirror"){
           dir.create(sp_archive, recursive = TRUE)
         }
         file.copy(sp, sp_newname, overwrite = TRUE)
-        cat("\nThere is an old file at the SharePoint location. That file was movied to the /archive subdirectory.")
+        cat("\nThere is an old file at the SharePoint location. That file was moved to the /archive subdirectory.")
         file.copy(x, sp, overwrite = TRUE)
         cat("\nThe file was copied to SharePoint.")
       } else{

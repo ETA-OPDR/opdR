@@ -40,7 +40,9 @@ consolidate_reporting_state_column <- function(data, program_year) {
   cnames <- c("p3000", "p4000")
 
   data <- data %>%
-    fncols(cname = cnames) %>%
+    fncols(cname = cnames)
+
+  data <- data |>
     select(-p3000, -p4000)
 
   return(data)

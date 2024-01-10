@@ -9,8 +9,8 @@ create_wioa_program_columns <- function(data) {
          youth = ifelse(p905 %in% 1:3, 1, NA),
          wp = ifelse(p918 == 1, 1, NA))
 
-  return(data)
   cat("\nA column indicating if a participant was in each WIOA program was added.")
+  return(data)
 }
 
 
@@ -40,14 +40,13 @@ consolidate_reporting_state_column <- function(data, program_year) {
   cnames <- c("p3000", "p4000")
 
   data <- data %>%
-    fncols(cname = cnames)
-
-  data <- data |>
+    fncols(cname = cnames) |>
     select(-p3000, -p4000)
+
+  cat("\nThe 'state' column now indicates the reporting state. p3000 and/or p4000 were dropped if present.")
 
   return(data)
 
-  cat("\nThe 'state' column now indicates the reporting state. p3000 and/or p4000 were dropped if present.")
 }
 
 
@@ -56,6 +55,8 @@ consolidate_reporting_state_column <- function(data, program_year) {
 add_outcome_type_dates <- function(program_year) {
 
   py <- as.numeric(program_year)
+
+  cat("\nAdded outcome type date variables to the environment.")
 
   py_end <<- ymd(paste0(py + 1, "0630"))
   py_start <<- py_end %m-% years(1) %m+% days(1)
@@ -67,7 +68,7 @@ add_outcome_type_dates <- function(program_year) {
   q4_start <<- q2_start %m-% months(6, abbreviate = FALSE)
   q4_roll4_start <<- q2_start %m-% months(6, abbreviate = FALSE) %m-% months(9, abbreviate = FALSE)
 
-  cat("\nAdded outcome type date variables to the environment.")
+
 }
 
 

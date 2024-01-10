@@ -150,7 +150,8 @@ add_general_services_received <- function(data) {
   data <- data |>
     mutate(bcsvc = ifelse(!is.na(p1003), 1, NA),
            icsvc = ifelse(!is.na(p1200), 1, NA),
-           tsvc = ifelse(p1300 == 1, 1, 0),
+           tsvc = ifelse(p1300 == 1, 1, NA),
+           tsvc1 = ifelse(is.na(p1300), 0, p1300),
            tsvc2 = ifelse(is.na(p1310), 0, p1310),
            tsvc3 = ifelse(is.na(p1315), 0, p1315),
            svc_work_exp = ifelse(!is.na(p1203), 1, NA),
@@ -164,8 +165,7 @@ add_general_services_received <- function(data) {
       tsvc == 1 ~ "tsvc",
       icsvc == 1 & is.na(tsvc) ~ "icsvc",
       bcsvc == 1 & is.na(icsvc) & is.na(tsvc) ~ "bcsvc")) |>
-    mutate(tsvc_count = tsvc + tsvc2 + tsvc3) |>
-    mutate(tsvc = ifelse(tsvc == 1, 1, NA))
+    mutate(tsvc_count = tsvc1 + tsvc2 + tsvc3)
 
   cat("\nAdded columns that show indicate the high level of services recieved by the participant.")
   return(data)

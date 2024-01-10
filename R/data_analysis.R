@@ -168,7 +168,6 @@ add_general_services_received <- function(data) {
     mutate(tsvc = ifelse(tsvc == 1, 1, NA))
 
   cat("\nAdded columns that show indicate the high level of services recieved by the participant.")
-
   return(data)
 }
 

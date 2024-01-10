@@ -32,7 +32,7 @@ format_zip_code <- function (data, zip_column) {
 
 add_state_information <- function(data, source_column, state_id_type, column_name, state_data = state_info) {
 
-  state_info <- opdR::state_info |>
+  state_info <- state_info |>
     mutate(Numeric_code = str_pad(as.character(Numeric_code), 2, side = "left", pad = "0"))
 
   if (state_id_type == "id") {

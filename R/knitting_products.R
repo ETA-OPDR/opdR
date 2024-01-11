@@ -35,7 +35,7 @@ render_state_documents = function(product, product_template, template_dir, year,
     region <- states_df$Region[states_df$state_code == state]
     region_title <- paste0("Region ", region)
 
-    if (custom_write_dir == FALSE & timing == FALSE) {
+    if (custom_write_dir == FALSE & (timing == FALSE|timing == "ANNUAL")) {
       write_dir <- here::here("reports", year, region_title)
     } else if (custom_write_dir == FALSE & timing == "MIDYEAR") {
       midyear <- paste0(year, "_MIDYEAR")

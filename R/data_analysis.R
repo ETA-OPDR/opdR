@@ -17,7 +17,7 @@ create_wioa_program_columns <- function(data) {
 
 
 list_of_wioa_states <- function(){
-  state_list <- states_info$Alpha_code
+  state_list <- state_info$Alpha_code
   return(state_list)
 }
 

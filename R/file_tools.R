@@ -81,7 +81,6 @@ copy_to_SP <- function(file_path, office, project_location = "mirror"){
 
 copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
 
-
   x <- paste0(dir_path, "/")
   sp_dir <- get_main_SP_directory(office)
 
@@ -102,7 +101,6 @@ copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
               to = paste0(new_folder, file),
               overwrite = TRUE)
   }
-
 
   cat("The directory was copied to SharePoint.")
 }

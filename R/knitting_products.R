@@ -4,14 +4,14 @@ library(tidyverse)
 
 # This function generates all the state reports from a template file
 render_state_documents = function(product, product_template, template_dir, year,
-                                  select_states = "all", exclude_states = NULL,
+                                  select_states = NULL, exclude_states = NULL,
                                   copy_file = TRUE, custom_write_dir = FALSE,
                                   program_type = FALSE, timing = FALSE,  data_used = FALSE) {
 
   states_df <- state_info |>
     rename(state_name = Name, state_code = Alpha_code)
 
-  if (select_states == "all") {
+  if (is.null(select_states)) {
     state_list <- states_df$state_code
   } else {
     states_df <- states_df |>

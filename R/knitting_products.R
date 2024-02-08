@@ -19,7 +19,7 @@ render_state_documents = function(product, product_template, template_dir, year,
     state_list <- states_df$state_code
   }
 
-  if (exclude_states == "none") {
+  if (exclude_states %in% c("none")) {
     state_list <- state_list
   } else {
     states_df <- states_df |>

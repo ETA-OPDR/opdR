@@ -9,7 +9,8 @@ render_state_documents = function(product, product_template, template_dir, year,
                                   program_type = FALSE, timing = FALSE,  data_used = FALSE) {
 
   states_df <- state_info |>
-    rename(state_name = Name, state_code = Alpha_code)
+    rename(state_name = Name, state_code = Alpha_code) |>
+    mutate(state_code = as.character(state_code))
 
   if (select_states == "all") {
     state_list <- states_df$state_code

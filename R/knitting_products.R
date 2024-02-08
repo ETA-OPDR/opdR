@@ -9,8 +9,7 @@ render_state_documents = function(product, product_template, template_dir, year,
                                   program_type = FALSE, timing = FALSE,  data_used = FALSE) {
 
   states_df <- state_info |>
-    rename(state_name = Name, state_code = Alpha_code) |>
-    mutate(state_code = as.character(state_code))
+    rename(state_name = Name, state_code = Alpha_code)
 
   if (select_states == "all") {
     state_list <- states_df$state_code
@@ -33,8 +32,8 @@ render_state_documents = function(product, product_template, template_dir, year,
   for (state in state_list) {
 
     state_name <- states_df$state_name[states_df$state_code == state]
-    region <- states_df$Region[states_df$state_code == state]
-    region_title <- paste0("Region ", region)
+    region_number <- states_df$Region[states_df$state_code == state]
+    region_title <- paste0("Region ", region_number)
 
     if (custom_write_dir == FALSE & (timing == FALSE|timing == "ANNUAL")) {
       write_dir <- here::here("reports", year, region_title)

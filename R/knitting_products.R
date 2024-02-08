@@ -4,7 +4,7 @@ library(tidyverse)
 
 # This function generates all the state reports from a template file
 render_state_documents = function(product, product_template, template_dir, year,
-                                  select_states = "all", exclude_states = "none",
+                                  select_states = "all", exclude_states = FALSE,
                                   copy_file = TRUE, custom_write_dir = FALSE,
                                   program_type = FALSE, timing = FALSE,  data_used = FALSE) {
 
@@ -19,7 +19,7 @@ render_state_documents = function(product, product_template, template_dir, year,
     state_list <- states_df$state_code
   }
 
-  if (exclude_states %in% c("none")) {
+  if (exclude_states == FALSE) {
     state_list <- state_list
   } else {
     states_df <- states_df |>

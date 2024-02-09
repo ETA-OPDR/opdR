@@ -50,7 +50,7 @@ render_state_documents = function(product, product_template, template_dir, year,
 
 
     if (product == "performance_assessment") {
-      cat(paste0("\nGenerating assessment for ", state, "..."))
+      cat(paste0("\n\n\nGenerating assessment for ", state, "..."))
       output_filename <- paste0(state, "_PY_", year, "_WIOA_Performance_Assessment.html")
       product_office <- "DP"
 
@@ -66,7 +66,7 @@ render_state_documents = function(product, product_template, template_dir, year,
 
 
     } else if (product == "equity") {
-      cat(paste0("\nGenerating equity report for ", state, "..."))
+      cat(paste0("\n\n\nGenerating equity report for ", state, "..."))
       output_filename <- paste0(state, "_PY", year, "_Equity_Report.html")
       product_office <- "DASP"
 
@@ -83,7 +83,7 @@ render_state_documents = function(product, product_template, template_dir, year,
       )
 
     } else if (product == "model_summary") {
-      cat(paste0("\nGenerating model summary for ", state, "..."))
+      cat(paste0("\n\n\nGenerating model summary for ", state, "..."))
       output_filename <- paste0(state, "_PY", year, "_Model_Summary.html")
       product_office <- "DP"
 

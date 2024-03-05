@@ -196,7 +196,7 @@ generate_program_outcomes <- function(df, period_start, period_end, msg_restrict
                                 p1332 == 1 | (p408 == 0 & p1401 == 1)), 1, NA))
 
 
-  if (msg_restricted == TRUE) {
+  if (msg_restricted == FALSE) {
     df <- df |>
       mutate(msg_den = ifelse(!is.na(p1811), 1, NA))
   } else {

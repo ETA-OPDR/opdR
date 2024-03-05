@@ -252,7 +252,7 @@ generate_program_outcomes <- function(df, period_start, period_end, msg_restrict
           !is.na(p1807) |
           !is.na(p1808) |
           !is.na(p1809) |
-          !is.na(p18010)) ~ 1,
+          !is.na(p1810)) ~ 1,
         msg_den == 1 ~ 0,
         is.na(msg_den) ~ NA_real_))
   }

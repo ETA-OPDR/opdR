@@ -103,7 +103,7 @@ render_state_documents = function(product, product_template, template_dir, year,
     cat("The document is in the the reports/{year} folder of the project directory.")
 
     if (copy_file == TRUE) {
-      cat(paste0("\nCopying the assessment for", state, " to the SharePoint project folder..."))
+      cat(paste0("\nCopying the report for ", state, " to the SharePoint project folder..."))
 
       assessment_file <- paste0(write_dir, "/", output_filename)
 

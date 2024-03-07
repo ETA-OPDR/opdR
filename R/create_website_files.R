@@ -43,8 +43,11 @@ create_anonymous_files <- function(files_dir, year, product){
 
   file_info <- flist |>
     mutate(program_year = year,
-           value = str_extract(value, "/OneDrive - US Department of Labor - DOL.*"),
-           newfile = str_extract(newfile, "/OneDrive - US Department of Labor - DOL.*")) |>
+           # value = str_extract(value, "/OneDrive - US Department of Labor - DOL.*"),
+           value = str_extract(value, "/Projects.*"),
+           # newfile = str_extract(newfile, "/OneDrive - US Department of Labor - DOL.*")
+           newfile = str_extract(newfile, "/Projects.*")
+           ) |>
     mutate(dol_link = paste0("https://www.dol.gov/sites/dolgov/files/ETA/opder/", drupal_location, year, "/", dol_link),
            anonymous_name = paste0(state, "_", runif)) |>
     rename(original_path = value,

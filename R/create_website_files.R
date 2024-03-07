@@ -29,7 +29,7 @@ create_anonymous_files <- function(files_dir, year, product){
 
 
   if(product == "state_equity") {
-    drupal_location <- "DASP/state_equity/"
+    drupal_location <- "DASP/Workforce_Services_Dashboards/"
     select_office <- "DASP"
   } else if(product == "state_assessments") {
     drupal_location <- "DoP/WIOA_Annual_Reports/"

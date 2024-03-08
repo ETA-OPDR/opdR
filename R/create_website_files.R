@@ -28,14 +28,14 @@ create_anonymous_files <- function(files_dir, year, product){
   file.copy(flist$value, flist$newfile, overwrite = TRUE)
 
 
-  if(product == "state_equity") {
+  if(product == "workforce_services_dashboards") {
     drupal_location <- "DASP/Workforce_Services_Dashboards/"
     select_office <- "DASP"
   } else if(product == "state_assessments") {
     drupal_location <- "DoP/WIOA_Annual_Reports/"
     select_office <- "DP"
   } else {
-    cat("No product was identified. \nThe product argument (i.e., product = ) must be indicated. \nThis function currently supports the following products: state_equity, state_assessments \nTo get your product added contact reuss.kevin.l@dol.gov")
+    cat("No product was identified. \nThe product argument (i.e., product = ) must be indicated. \nThis function currently supports the following products: workforce_services_dashboards, state_assessments \nTo get your product added contact reuss.kevin.l@dol.gov")
   }
 
 

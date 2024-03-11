@@ -65,9 +65,9 @@ render_state_documents = function(product, product_template, template_dir, year,
       )
 
 
-    } else if (product == "equity") {
-      cat(paste0("\n\n\nGenerating equity report for ", state, "..."))
-      output_filename <- paste0(state, "_PY", year, "_Equity_Report.html")
+    } else if (product == "workforce_services") {
+      cat(paste0("\n\n\nGenerating Workforce Services Dashboard for ", state, "..."))
+      output_filename <- paste0(state, "_PY", year, "_Workforce_Services_Dashboard.html")
       product_office <- "DASP"
 
       rmarkdown::render(

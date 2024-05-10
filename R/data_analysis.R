@@ -201,8 +201,8 @@ generate_program_outcomes <- function(df, period_start, period_end, msg_restrict
       mutate(msg_den = ifelse(!is.na(p1811), 1, NA))
   } else {
     df <- df |>
-      mutate(msg_den = ifelse(((!is.na(p1811) & (p1811 <= period_end)) &
-                                 ((p1813 >= period_start) | (is.na(p1813)))), 1, NA))
+      mutate(msg_den = ifelse(((!is.na(p1811) & (p1811 <= {{period_end}})) &
+                                 ((p1813 >= {{period_start}}) | (is.na(p1813)))), 1, NA))
   }
 
 
@@ -231,14 +231,14 @@ generate_program_outcomes <- function(df, period_start, period_end, msg_restrict
     df <- df |>
       mutate(msg = case_when(
         msg_den == 1 &
-          ((p1801 >= period_start & p1801 <= period_end) & p1800 == 1 |
-             (p1803 >= period_start & p1803 <= period_end) & p1802 == 1 |
-             (p1805 >= period_start & p1805 <= period_end) & p1804 == 1 |
-             (p1806 >= period_start & p1806 <= period_end) |
-             (p1807 >= period_start & p1807 <= period_end) |
-             (p1808 >= period_start & p1808 <= period_end) |
-             (p1809 >= period_start & p1809 <= period_end) |
-             (p1810 >= period_start & p1810 <= period_end)) ~ 1,
+            ((p1801 >= {{period_start}} & p1801 <= {{period_end}}) & p1800 == 1 |
+             (p1803 >= {{period_start}} & p1803 <= {{period_end}}) & p1802 == 1 |
+             (p1805 >= {{period_start}} & p1805 <= {{period_end}}) & p1804 == 1 |
+             (p1806 >= {{period_start}} & p1806 <= {{period_end}}) |
+             (p1807 >= {{period_start}} & p1807 <= {{period_end}}) |
+             (p1808 >= {{period_start}} & p1808 <= {{period_end}}) |
+             (p1809 >= {{period_start}} & p1809 <= {{period_end}}) |
+             (p1810 >= {{period_start}} & p1810 <= {{period_end}})) ~ 1,
         msg_den == 1 ~ 0,
         is.na(msg_den) ~ NA_real_))
   } else {

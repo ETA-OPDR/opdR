@@ -7,8 +7,15 @@ library(tools)
 library(arrow)
 
 
-
-# This function creates the SharePoint office path
+#' Get the main SharePoint directory path
+#'
+#' A function to create a string of the path to the chosen office's main SharePoint directory
+#'
+#' @param office The office of the SharePoint path you want. This currently set up for OPDR's DASP and DP Teams. To be added email zzETA-DASP@dol.gov
+#' @examples
+#' DASP_path <- get_main_SP_directory(office = "DASP")
+#' DP_path <- get_main_SP_directory(office = "DP")
+#' @export
 get_main_SP_directory <- function(office){
   user <- Sys.info()[["user"]]
   main_dir <- paste0("C:/Users/", user, "/US Department of Labor - DOL/")
@@ -19,7 +26,8 @@ get_main_SP_directory <- function(office){
     sp_dir <- paste0(main_dir, "T-ETA-OPDR-Data Team - Documents/")
     return(sp_dir)
   } else {
-    cat("\nThe office needs to be specified using the office argument for this function \ne.g., get_main_SP_directory(office = DASP) \nCurrent options include: DASP or DP. \nIf your office is not included please contact reuss.kevin.l@dol.gov to get your office location added.")
+    cat("\nThe office needs to be specified using the office argument for this function \ne.g., get_main_SP_directory(office = DASP).
+    Current options include: DASP or DP. \nIf your office is not included please contact zzETA-DASP@dol.gov to get your office location added.\n\n")
   }
 }
 
@@ -105,6 +113,58 @@ copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
   cat("The directory was copied to SharePoint.")
 }
 
+
+
+
+copy_from_SP <- function(file_path, office, project_location = "mirror") {
+  x <- file_path
+
+  if (project_location == "mirror"){
+    project_path <- stringr::str_extract(x, "Projects.*")
+  } else if(project_location != "mirror") {
+    select_file <- basename(x)
+    project_path <- paste0("Projects/", project_location, "/", select_file)
+  }
+
+  sp_dir <- get_main_SP_directory(office)
+  sp <- paste0(sp_dir, project_path)
+
+  x_short <- dirname(x)
+  x_archive <- paste0(x_short, "/archive/")
+  x_archive_file <- paste0(x_archive, basename(x))
+
+  if (!dir.exists(x_short)){
+    dir.create(x_short, recursive = TRUE)
+    cat("\nThe directory you are copying from in SharePoint does not exist locally so it was created.\n
+        This is unlikely to occur to verify that your project is set up correctly.\n")
+  }
+  if(!file.exists(sp)) {
+    cat("\nThis operation did not complete because a file does not exist at the SharePoint location.
+        \nThis could be because this is a new script and the file has not been created yet.
+        \nIf you beleive there should be a shared file at this location please verify before continuing.
+        \n")
+  } else {
+    if(!file.exists(x)){
+      file.copy(sp, x, overwrite = TRUE)
+      cat("\nThe file was copied to your local project.")
+    } else {
+      date_x <- file.info(x)$mtime
+      date_sp <- file.info(sp)$mtime
+      x_newname <- paste0(tools::file_path_sans_ext(x_archive_file), "_", lubridate::year(file.info(x)$mtime), lubridate::month(file.info(x)$mtime), lubridate::day(file.info(x)$mtime), ".", tools::file_ext(x))
+
+      if(date_x < date_sp){
+        if (!dir.exists(x_archive)){
+          dir.create(x_archive, recursive = TRUE)
+        }
+        file.copy(x, x_newname, overwrite = TRUE)
+        cat("\nThere is an old file in your local directory. That file was moved to the /archive subdirectory.")
+        file.copy(sp, x, overwrite = TRUE)
+        cat("\nThe newer file from SharePoint was copied to your local directory.")
+      }
+    }
+  }
+
+}
 
 
 

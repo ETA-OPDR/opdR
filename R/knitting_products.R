@@ -9,37 +9,37 @@ render_state_documents = function(product, product_template, template_dir, year,
                                   program_type = FALSE, timing = FALSE,  data_used = FALSE) {
 
   states_df <- state_info |>
-    rename(state_name = Name, state_code = Alpha_code)
+    rename(s_name = Name, s_code = Alpha_code)
 
   if (is.null(select_states)) {
-    state_list <- states_df$state_code
+    s_list <- states_df$state_code
   } else {
     states_df <- states_df |>
       filter(state_code %in% select_states)
-    state_list <- states_df$state_code
+    s_list <- states_df$state_code
   }
 
   if (is.null(exclude_states)) {
-    state_list <- state_list
+    s_list <- s_list
   } else {
     states_df <- states_df |>
       filter(!state_code %in% exclude_states)
-    state_list <- states_df$state_code
+    s_list <- states_df$state_code
   }
 
   rmd_file <- paste0(template_dir, "/", product_template)
 
-  for (state in state_list) {
+  for (s in s_list) {
 
-    state_name <- states_df$state_name[states_df$state_code == state]
-    region_number <- states_df$Region[states_df$state_code == state]
-    region_title <- paste0("Region ", region_number)
+    s_name <- states_df$state_name[states_df$state_code == s]
+    r_number <- states_df$Region[states_df$state_code == s]
+    r_title <- paste0("Region ", r_number)
 
     if (custom_write_dir == FALSE & (timing == FALSE|timing == "ANNUAL")) {
-      write_dir <- here::here("reports", year, region_title)
+      write_dir <- here::here("reports", year, r_title)
     } else if (custom_write_dir == FALSE & timing == "MIDYEAR") {
       midyear <- paste0(year, "_MIDYEAR")
-      write_dir <- here::here("reports", midyear, region_title)
+      write_dir <- here::here("reports", midyear, r_title)
     }else {
       write_dir <- custom_write_dir
     }
@@ -50,32 +50,32 @@ render_state_documents = function(product, product_template, template_dir, year,
 
 
     if (product == "performance_assessment") {
-      cat(paste0("\n\n\nGenerating assessment for ", state, "..."))
-      output_filename <- paste0(state, "_PY_", year, "_WIOA_Performance_Assessment.html")
+      cat(paste0("\n\n\nGenerating assessment for ", s, "..."))
+      output_filename <- paste0(s, "_PY_", year, "_WIOA_Performance_Assessment.html")
       product_office <- "DP"
 
       rmarkdown::render(
         rmd_file,
         output_dir = write_dir,
         params = list(
-          region = state,
-          region_name = state_name,
+          region = s,
+          region_name = s_name,
           program_year = year),
         output_file = output_filename
       )
 
 
     } else if (product == "workforce_services") {
-      cat(paste0("\n\n\nGenerating Workforce Services Dashboard for ", state, "..."))
-      output_filename <- paste0(state, "_PY", year, "_Workforce_Services_Dashboard.html")
+      cat(paste0("\n\n\nGenerating Workforce Services Dashboard for ", s, "..."))
+      output_filename <- paste0(s, "_PY", year, "_Workforce_Services_Dashboard.html")
       product_office <- "DASP"
 
       rmarkdown::render(
         rmd_file,
         output_dir = write_dir,
         params = list(
-          region = state,
-          region_name = state_name,
+          region = s,
+          region_name = s_name,
           program_year = year,
           program_name = program_type,
           data_type = data_used),
@@ -83,16 +83,16 @@ render_state_documents = function(product, product_template, template_dir, year,
       )
 
     } else if (product == "model_summary") {
-      cat(paste0("\n\n\nGenerating model summary for ", state, "..."))
-      output_filename <- paste0(state, "_PY", year, "_Model_Summary.html")
+      cat(paste0("\n\n\nGenerating model summary for ", s, "..."))
+      output_filename <- paste0(s, "_PY", year, "_Model_Summary.html")
       product_office <- "DP"
 
       rmarkdown::render(
         rmd_file,
         output_dir = write_dir,
         params = list(
-          region = state,
-          region_name = state_name,
+          region = s,
+          region_name = s_name,
           program_year = year),
         output_file = output_filename
       )
@@ -103,7 +103,7 @@ render_state_documents = function(product, product_template, template_dir, year,
     cat("The document is in the the reports/{year} folder of the project directory.")
 
     if (copy_file == TRUE) {
-      cat(paste0("\nCopying the report for ", state, " to the SharePoint project folder..."))
+      cat(paste0("\nCopying the report for ", s, " to the SharePoint project folder..."))
 
       assessment_file <- paste0(write_dir, "/", output_filename)
 

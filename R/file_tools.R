@@ -1,10 +1,12 @@
 
 # Dependent packages:
-library(here)
-library(stringr)
-library(lubridate)
-library(tools)
-library(arrow)
+
+#' @import here
+#' @import stringr
+#' @import lubridate
+#' @import tools
+#' @import arrow
+
 
 
 #' Get the main SharePoint directory path
@@ -12,9 +14,11 @@ library(arrow)
 #' A function to create a string of the path to the chosen office's main SharePoint directory
 #'
 #' @param office The office of the SharePoint path you want. This currently set up for OPDR's DASP and DP Teams. To be added email zzETA-DASP@dol.gov
+#'
 #' @examples
 #' DASP_path <- get_main_SP_directory(office = "DASP")
 #' DP_path <- get_main_SP_directory(office = "DP")
+#'
 #' @export
 get_main_SP_directory <- function(office){
   user <- Sys.info()[["user"]]

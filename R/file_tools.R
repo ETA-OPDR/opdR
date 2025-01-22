@@ -33,8 +33,20 @@ get_main_SP_directory <- function(office){
 
 
 
-# This function copies a file from the users local project to the related SharePoint location
-# The only argument is the file path of the original
+#' Copy a local file in a local project to the team project folder on SharePoint
+#'
+#' This function copies a file from the users local project to the related SharePoint location
+#'
+#' @param file_path The local file path of the file you want to copy to SharePoint. This is typically the file you just wrote to a local directory.
+#' @param office The office of the SharePoint path you want. This currently set up for OPDR's DASP and DP Teams. To be added email zzETA-DASP@dol.gov
+#' @param project_location The default is "mirror" which means the file will be copied to the same location in the SharePoint directory as the local directory. If you want to copy the file to a different location in the SharePoint directory you can specify the location here.
+#' @examples
+#'
+#' write_path <- here::here("data",  "PY2021.csv")
+#' write_csv(df, write_path)
+#' copy_to_SP(write_path, office = "DASP")
+#'
+#' @export
 copy_to_SP <- function(file_path, office, project_location = "mirror"){
   x <- file_path
 
@@ -86,7 +98,19 @@ copy_to_SP <- function(file_path, office, project_location = "mirror"){
 }
 
 
-
+#' Copy the whole directory in a local project to the team project folder on SharePoint
+#'
+#' This function copies a directory from the users local project to the related SharePoint location
+#'
+#' @param dir_path The local directory path of the directory you want to copy to SharePoint.
+#' @param office The office of the SharePoint path you want. This currently set up for OPDR's DASP and DP Teams. To be added email zzETA-DASP@dol.gov
+#' @param project_location The default is "mirror" which means the directory will be copied to the same location in the SharePoint directory as the local directory. If you want to copy the directory to a different location in the SharePoint directory you can specify the location here.
+#' @examples
+#'
+#' dir <- here::here("data")
+#' copy_dir_to_SP(dir, office = "DASP")
+#'
+#' @export
 copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
 
   x <- paste0(dir_path, "/")
@@ -115,7 +139,20 @@ copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
 
 
 
-
+#' Copy a local file in a team SharePoint project to user's local project
+#'
+#' This function copies a file from the team project directory on SharePoint to the related project directory on the user's local machine.
+#'
+#' @param file_path The team SharePoint project path of the file you want to copy to your local. This is typically the file you are about to read in.
+#' @param office The office of the SharePoint path you want. This currently set up for OPDR's DASP and DP Teams. To be added email zzETA-DASP@dol.gov
+#' @param project_location The default is "mirror" which means the file will be copied from the same location in the SharePoint directory as the local directory. If you want to copy the file from a different location in the SharePoint directory you can specify the location here.
+#' @examples
+#'
+#' read_path <- here::here("data",  "PY2021.csv")
+#' copy_from_SP(read_path, office = "DASP")
+#' df <- read_csv(read_path)
+#'
+#' @export
 copy_from_SP <- function(file_path, office, project_location = "mirror") {
   x <- file_path
 
@@ -168,8 +205,21 @@ copy_from_SP <- function(file_path, office, project_location = "mirror") {
 
 
 
-
-copy_source_wipr_data <- function(program_years, office, destination_dir = here::here("data", "wipr"), source_type = "clean", py_quarter = 4) {
+#' Copy a WIPR quarterly data file from the S drive to different location
+#'
+#' This function copies a WIPR quarterly data file from the S drive to a local directory, unzips the file, reads in the csv file, saves the file as a parquet file, and then copies the parquet file to the related SharePoint location.
+#'
+#' @param program_years The WIOA program year files you want. This can be a single year or a vector of years.
+#' @param destination_dir The path of the directory you want to copy the files to. The default is the data/wipr directory in the project.
+#' @param source_type The type of WIPR file you want to copy. The default is "clean" which is the SPRA file. The other option is "raw" which is the WIPS file.
+#' @param py_quarter The quarter of the program year file you want. The default is 4 because it is the file you want to use for annual data.
+#' @examples
+#'
+#' copy_source_wipr_data(program_years = 2021)
+#' copy_source_wipr_data(program_years = c(2020, 2021), source_type = "raw", py_quarter = 2)
+#'
+#' @export
+copy_source_wipr_data <- function(program_years, destination_dir = here::here("data", "wipr"), source_type = "clean", py_quarter = 4) {
 
   output_dir <- destination_dir
   if (!dir.exists(output_dir)){
@@ -212,7 +262,7 @@ copy_source_wipr_data <- function(program_years, office, destination_dir = here:
     #Note: sometimes there is an error in removing the file because a connection is still open. Try again later or manually remove
     cat("\nRemoved old files for PY", program_year)
 
-    copy_to_SP(export_parquet_file, office = office)
+    # copy_to_SP(export_parquet_file, office = office)
   }
 }
 

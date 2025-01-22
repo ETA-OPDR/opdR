@@ -1,14 +1,4 @@
 
-# Dependent packages:
-
-#' @import here
-#' @import stringr
-#' @import lubridate
-#' @import tools
-#' @import arrow
-#'
-
-
 
 #' Get the main SharePoint directory path
 #'
@@ -19,6 +9,8 @@
 #' @examples
 #' DASP_path <- get_main_SP_directory(office = "DASP")
 #' DP_path <- get_main_SP_directory(office = "DP")
+#'
+#' @import tools
 #'
 #' @export
 get_main_SP_directory <- function(office){
@@ -50,6 +42,10 @@ get_main_SP_directory <- function(office){
 #' write_path <- here::here("data",  "PY2021.csv")
 #' write_csv(df, write_path)
 #' copy_to_SP(write_path, office = "DASP")
+#'
+#' @import stringr
+#' @import lubridate
+#' @import tools
 #'
 #' @export
 copy_to_SP <- function(file_path, office, project_location = "mirror"){
@@ -115,6 +111,7 @@ copy_to_SP <- function(file_path, office, project_location = "mirror"){
 #' dir <- here::here("data")
 #' copy_dir_to_SP(dir, office = "DASP")
 #'
+#'
 #' @export
 copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
 
@@ -156,6 +153,10 @@ copy_dir_to_SP <- function(dir_path, office, project_location = "mirror"){
 #' read_path <- here::here("data",  "PY2021.csv")
 #' copy_from_SP(read_path, office = "DASP")
 #' df <- read_csv(read_path)
+#'
+#' @import stringr
+#' @import lubridate
+#' @import tools
 #'
 #' @export
 copy_from_SP <- function(file_path, office, project_location = "mirror") {
@@ -222,6 +223,10 @@ copy_from_SP <- function(file_path, office, project_location = "mirror") {
 #'
 #' copy_source_wipr_data(program_years = 2021)
 #' copy_source_wipr_data(program_years = c(2020, 2021), source_type = "raw", py_quarter = 2)
+#'
+#' @import here
+#' @import data.table
+#' @import arrow
 #'
 #' @export
 copy_source_wipr_data <- function(program_years, destination_dir = here::here("data", "wipr"), source_type = "clean", py_quarter = 4) {

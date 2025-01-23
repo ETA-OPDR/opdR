@@ -1,7 +1,32 @@
-# Dependent packages:
-library(tidyverse)
 
 
+#' Renders state documents
+#'
+#' This function generates all the reports/dashboards for each state using a template file with the appropriate parameters.
+#'
+#' @param product The type of document you want to generate. Options are "performance_assessment", "workforce_services", and "model_summary". To add a product email zzETA-DASP@dol.gov
+#' @param product_template The name of the template file you want to use to generate the reports. This should be the name of the Rmd file in the template directory.
+#' @param template_dir The directory where the template file is located.
+#' @param year The year of the program data you want to use to generate the reports.
+#' @param select_states A vector of state codes for the states you want to generate reports for. If NULL, reports will be generated for all states and this is the default option.
+#' @param exclude_states A vector of state codes for the states you want to exclude from the reports. If NULL, no states will be excluded and this is the default option.
+#' @param copy_file A logical value indicating whether to copy the generated reports to the SharePoint project folder. The default is TRUE.
+#' @param custom_write_dir A character string indicating the directory where the reports should be written to. If FALSE, the reports will be written to the default directory. The default is FALSE.
+#' @param program_type A character string indicating the type of program data used to generate the reports. This is only required for the "workforce_services" product. The default is FALSE.
+#' @param timing A character string indicating the timing of the reports. Options are "ANNUAL" and "MIDYEAR" and is only used in the "performance_assessment" product. The default is FALSE.
+#' @param data_used A character string indicating the type of data used to generate the reports. This is only required for the "workforce_services" product. The default is FALSE.
+#' @examples
+#'
+#' render_state_documents(product = "performance_assessment", product_template = "performance_assessment_template.Rmd",
+#'                      template_dir = here::here("src", "templates"), year = 2021,  select_states = c("CA", "NY"), , timing = "ANNUAL")
+#'
+#' render_state_documents(product = "workforce_services", product_template = "workforce_services_template.Rmd",
+#'                      template_dir = here::here("src", "templates"), year = 2021,  program_type = "WIOA", data_used = "imputed")
+#'
+#' @import here
+#' @import rmarkdown
+#'
+#' @export
 # This function generates all the state reports from a template file
 render_state_documents = function(product, product_template, template_dir, year,
                                   select_states = NULL, exclude_states = NULL,

@@ -24,5 +24,8 @@ Imports:
     lubridate,
     openxlsx,
     stringr,
-    tools
+    tools,
+    arrow,
+    data.table,
+    rmarkown
 RoxygenNote: 7.3.2

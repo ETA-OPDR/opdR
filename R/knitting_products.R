@@ -43,7 +43,7 @@ render_state_documents = function(product, product_template, template_dir, year,
   }
 
   if (is.null(select_states)) {
-    s_list <- states_df$state_code
+    s_list <- states_df$s_code
   } else {
     states_df <- states_df |>
       filter(s_code %in% select_states)

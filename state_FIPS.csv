@@ -1,53 +1,57 @@
-Name,Alpha_code,Numeric_code,Status,Region
-Alabama,AL,1,State; counties,3
-Alaska,AK,2,State; boroughs,6
-Arizona,AZ,4,State; counties,6
-Arkansas,AR,5,State; counties,4
-California,CA,6,State; counties,6
-Colorado,CO,8,State; counties,4
-Connecticut,CT,9,State; counties,1
-Delaware,DE,10,State; counties,2
-District of Columbia,DC,11,Federal district[4],2
-Florida,FL,12,State; counties,3
-Georgia,GA,13,State; counties,3
-Hawaii,HI,15,State; counties,6
-Idaho,ID,16,State; counties,6
-Illinois,IL,17,State; counties,5
-Indiana,IN,18,State; counties,5
-Iowa,IA,19,State; counties,5
-Kansas,KS,20,State; counties,5
-Kentucky,KY,21,State; counties,3
-Louisiana,LA,22,State; parishes,4
-Maine,ME,23,State; counties,1
-Maryland,MD,24,State; counties,2
-Massachusetts,MA,25,State; counties,1
-Michigan,MI,26,State; counties,5
-Minnesota,MN,27,State; counties,5
-Mississippi,MS,28,State; counties,3
-Missouri,MO,29,State; counties,5
-Montana,MT,30,State; counties,4
-Nebraska,NE,31,State; counties,5
-Nevada,NV,32,State; counties,6
-New Hampshire,NH,33,State; counties,1
-New Jersey,NJ,34,State; counties,1
-New Mexico,NM,35,State; counties,4
-New York,NY,36,State; counties,1
-North Carolina,NC,37,State; counties,3
-North Dakota,ND,38,State; counties,4
-Ohio,OH,39,State; counties,5
-Oklahoma,OK,40,State; counties,4
-Oregon,OR,41,State; counties,6
-Pennsylvania,PA,42,State; counties,2
-Rhode Island,RI,44,State; counties,1
-South Carolina,SC,45,State; counties,3
-South Dakota,SD,46,State; counties,4
-Tennessee,TN,47,State; counties,3
-Texas,TX,48,State; counties,4
-Utah,UT,49,State; counties,4
-Vermont,VT,50,State; counties,1
-Virginia,VA,51,State; counties,2
-Washington,WA,53,State; counties,6
-West Virginia,WV,54,State; counties,2
-Wisconsin,WI,55,State; counties,5
-Wyoming,WY,56,State; counties,4
-Puerto Rico,PR,72,Federal district[4],1
+Name,Alpha_code,Numeric_code,Status,Region,,,,,,,,,,,,,,,,,,,,,
+Alabama,AL,1,State; counties,3,,,,,,,,,,,,,,,,,,,,,
+Alaska,AK,2,State; boroughs,6,,,,,,,,,,,,,,,,,,,,,
+Arizona,AZ,4,State; counties,6,,,,,,,,,,,,,,,,,,,,,
+Arkansas,AR,5,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+California,CA,6,State; counties,6,,,,,,,,,,,,American Samoa,Insular area (Territory),AS,AS,60,AS,AS,A.S.,,
+Colorado,CO,8,State; counties,4,,,,,,,,,,,,,,ASM,,,,,,,
+Connecticut,CT,9,State; counties,1,,,,,,,,,,,,,,016,,,,,,,
+Delaware,DE,10,State; counties,2,,,,,,,,,,,,,,US-AS,,,,,,,
+District of Columbia,DC,11,Federal district[4],2,,,,,,,,,,,, Guam,Insular area (Territory),GU,GU,66,GU,GU,Guam,,
+Florida,FL,12,State; counties,3,,,,,,,,,,,,,,GUM,,,,,,,
+Georgia,GA,13,State; counties,3,,,,,,,,,,,,,,316,,,,,,,
+Hawaii,HI,15,State; counties,6,,,,,,,,,,,,,,US-GU,,,,,,,
+Idaho,ID,16,State; counties,6,,,,,,,,,,,, Northern Mariana Islands,Insular area (Commonwealth),MP,MP,69,MP,CM,M.P.,,CNMI[8]
+Illinois,IL,17,State; counties,5,,,,,,,,,,,,,,MNP,,,,,,,
+Indiana,IN,18,State; counties,5,,,,,,,,,,,,,,580,,,,,,,
+Iowa,IA,19,State; counties,5,,,,,,,,,,,,,,US-MP,,,,,,,
+Kansas,KS,20,State; counties,5,,,,,,,,,,,, Puerto Rico,Insular area (Commonwealth),PR,PR,72,PR,PR,P.R.,,
+Kentucky,KY,21,State; counties,3,,,,,,,,,,,,,,PRI,,,,,,,
+Louisiana,LA,22,State; parishes,4,,,,,,,,,,,,,,630,,,,,,,
+Maine,ME,23,State; counties,1,,,,,,,,,,,,,,US-PR,,,,,,,
+Maryland,MD,24,State; counties,2,,,,,,,,,,,, U.S. Virgin Islands,Insular area (Territory),VI,VI,78,VI,VI,V.I.,,
+Massachusetts,MA,25,State; counties,1,,,,,,,,,,,,,,VIR,,,,,,,
+Michigan,MI,26,State; counties,5,,,,,,,,,,,,,,850,,,,,,,
+Minnesota,MN,27,State; counties,5,,,,,,,,,,,,,,US-VI,,,,,,,
+Mississippi,MS,28,State; counties,3,,,,,,,,,,,,,,,,,,,,,
+Missouri,MO,29,State; counties,5,,,,,,,,,,,,,,,,,,,,,
+Montana,MT,30,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+Nebraska,NE,31,State; counties,5,,,,,,,,,,,,,,,,,,,,,
+Nevada,NV,32,State; counties,6,,,,,,,,,,,,,,,,,,,,,
+New Hampshire,NH,33,State; counties,1,,,,,,,,,,,,,,,,,,,,,
+New Jersey,NJ,34,State; counties,1,,,,,,,,,,,,,,,,,,,,,
+New Mexico,NM,35,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+New York,NY,36,State; counties,1,,,,,,,,,,,,,,,,,,,,,
+North Carolina,NC,37,State; counties,3,,,,,,,,,,,,,,,,,,,,,
+North Dakota,ND,38,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+Ohio,OH,39,State; counties,5,,,,,,,,,,,,,,,,,,,,,
+Oklahoma,OK,40,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+Oregon,OR,41,State; counties,6,,,,,,,,,,,,,,,,,,,,,
+Pennsylvania,PA,42,State; counties,2,,,,,,,,,,,,,,,,,,,,,
+Rhode Island,RI,44,State; counties,1,,,,,,,,,,,,,,,,,,,,,
+South Carolina,SC,45,State; counties,3,,,,,,,,,,,,,,,,,,,,,
+South Dakota,SD,46,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+Tennessee,TN,47,State; counties,3,,,,,,,,,,,,,,,,,,,,,
+Texas,TX,48,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+Utah,UT,49,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+Vermont,VT,50,State; counties,1,,,,,,,,,,,,,,,,,,,,,
+Virginia,VA,51,State; counties,2,,,,,,,,,,,,,,,,,,,,,
+Washington,WA,53,State; counties,6,,,,,,,,,,,,,,,,,,,,,
+West Virginia,WV,54,State; counties,2,,,,,,,,,,,,,,,,,,,,,
+Wisconsin,WI,55,State; counties,5,,,,,,,,,,,,,,,,,,,,,
+Wyoming,WY,56,State; counties,4,,,,,,,,,,,,,,,,,,,,,
+Puerto Rico,PR,72,Federal district[4],1,,,,,,,,,,,,,,,,,,,,,
+America Samoa,AS,60,Territory,7,,,,,,,,,,,,,,,,,,,,,
+Guam,GU,66,Territory,7,,,,,,,,,,,,,,,,,,,,,
+Northern Mariana Islands,MP,69,Territory,7,,,,,,,,,,,,,,,,,,,,,
+U.S. Virgin Islands,VI,78,Territory,7,,,,,,,,,,,,,,,,,,,,,

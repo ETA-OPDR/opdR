@@ -10,5 +10,5 @@
 #' \item{Status}{The type of area}
 #' \item{Region}{The ETA Regional Office of the area}
 #' }
-#' @source \url{}
+#' @source \url{https://en.wikipedia.org/wiki/List_of_U.S._state_and_territory_abbreviations}
 "state_info"

@@ -14,7 +14,7 @@ A data frame
 }
 }
 \source{
-\url{}
+\url{https://en.wikipedia.org/wiki/List_of_U.S._state_and_territory_abbreviations}
 }
 \usage{
 state_info

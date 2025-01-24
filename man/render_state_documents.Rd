@@ -15,7 +15,8 @@ render_state_documents(
   custom_write_dir = FALSE,
   program_type = FALSE,
   timing = FALSE,
-  data_used = FALSE
+  data_used = FALSE,
+  include_territories = FALSE
 )
 }
 \arguments{

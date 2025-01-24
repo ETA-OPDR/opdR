@@ -31,10 +31,16 @@
 render_state_documents = function(product, product_template, template_dir, year,
                                   select_states = NULL, exclude_states = NULL,
                                   copy_file = TRUE, custom_write_dir = FALSE,
-                                  program_type = FALSE, timing = FALSE,  data_used = FALSE) {
+                                  program_type = FALSE, timing = FALSE,  data_used = FALSE,
+                                  include_territories = FALSE) {
 
   states_df <- state_info |>
     rename(s_name = Name, s_code = Alpha_code)
+
+  if (include_territories == FALSE) {
+    states_df <- states_df |>
+      filter(Status != "Territory")
+  }
 
   if (is.null(select_states)) {
     s_list <- states_df$state_code

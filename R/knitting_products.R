@@ -40,24 +40,24 @@ render_state_documents = function(product, product_template, template_dir, year,
     s_list <- states_df$state_code
   } else {
     states_df <- states_df |>
-      filter(state_code %in% select_states)
-    s_list <- states_df$state_code
+      filter(s_code %in% select_states)
+    s_list <- states_df$s_code
   }
 
   if (is.null(exclude_states)) {
     s_list <- s_list
   } else {
     states_df <- states_df |>
-      filter(!state_code %in% exclude_states)
-    s_list <- states_df$state_code
+      filter(!s_code %in% exclude_states)
+    s_list <- states_df$s_code
   }
 
   rmd_file <- paste0(template_dir, "/", product_template)
 
   for (s in s_list) {
 
-    s_name <- states_df$state_name[states_df$state_code == s]
-    r_number <- states_df$Region[states_df$state_code == s]
+    s_name <- states_df$state_name[states_df$s_code == s]
+    r_number <- states_df$Region[states_df$s_code == s]
     r_title <- paste0("Region ", r_number)
 
     if (custom_write_dir == FALSE & (timing == FALSE|timing == "ANNUAL")) {

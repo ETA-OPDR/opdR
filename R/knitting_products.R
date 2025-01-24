@@ -62,7 +62,7 @@ render_state_documents = function(product, product_template, template_dir, year,
 
   for (s in s_list) {
 
-    s_name <- states_df$state_name[states_df$s_code == s]
+    s_name <- states_df$s_name[states_df$s_code == s]
     r_number <- states_df$Region[states_df$s_code == s]
     r_title <- paste0("Region ", r_number)
 

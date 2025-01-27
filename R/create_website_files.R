@@ -1,10 +1,21 @@
-library(tidyverse)
-library(openxlsx)
-library(here)
 
 
-
-# This function creates anonymous files for the DOL website and a spreadsheet with the file/link info.
+#' Creates anonymous named files
+#'
+#' This function creates anonymous named files for the DOL website and a spreadsheet with the file/link info.
+#'
+#' @param files_dir The directory where the files are located.
+#' @param year The program year of the reports/dashboards you want to rename.
+#' @param product A character string indicating the product type. Options are "workforce_services_dashboards" and "state_assessments".
+#' @examples
+#'
+#' create_anonymous_files(files_dir = here::here("reports"), year = 2021, product = "workforce_services_dashboards")
+#'
+#' @import here
+#' @import openxlsx
+#' @import dplyr
+#'
+#' @export
 create_anonymous_files <- function(files_dir, year, product){
 
   file_dir <- paste0(files_dir, "/", year)

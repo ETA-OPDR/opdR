@@ -27,7 +27,6 @@
 #' @import rmarkdown
 #'
 #' @export
-# This function generates all the state reports from a template file
 render_state_documents = function(product, product_template, template_dir, year,
                                   select_states = NULL, exclude_states = NULL,
                                   copy_file = TRUE, custom_write_dir = FALSE,

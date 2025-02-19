@@ -211,7 +211,7 @@ copy_from_SP <- function(file_path, office, project_location = "mirror") {
 
 #' Copy a WIPR quarterly data file from the S drive to different location
 #'
-#' This function copies a WIPR quarterly data file from the S drive to a local directory, unzips the file, reads in the csv file, saves the file as a parquet file, and then copies the parquet file to the related SharePoint location.
+#' This function copies a WIPR quarterly data file from the S drive to a local directory, unzips the file, reads in the csv file, and saves the file as a parquet file.
 #'
 #' @param program_years The WIOA program year files you want. This can be a single year or a vector of years.
 #' @param destination_dir The path of the directory you want to copy the files to. The default is the data/wipr directory in the project.
@@ -242,6 +242,10 @@ copy_source_wipr_data <- function(program_years, destination_dir = here::here("d
   } else if (source_type == "raw") {
     filename_type <- "_WIPS_RAW_CSV.zip"
     dir_type <- "WIPS/RAW_CSV/"
+  } else if (source_type == "public") {
+    cat("\nThis option is not currently available. Please select either 'clean' or 'raw' for the source_type argument.")
+    # filename_type <- "_SPRA_Public_Use_File.zip"
+    # dir_type <- "SPRA/Public Use File/"
   }
 
   for (program_year in program_years) {

@@ -1,7 +1,17 @@
 
-library(dplyr)
-library(lubridate)
 
+#' Create WIOA program columns
+#'
+#' This function creates columns for each WIOA program (Adult, Dislocated Worker, Youth, and Wagner-Peyser) and indicates if the person is in the program based on the values in the p903, p904, p905, and p918 columns.
+#'
+#' @param data The data frame you want to add the columns to. It should include the columns p903, p904, p905, and p918.
+#' @examples
+#'
+#' df <- create_wioa_program_columns(df)
+#'
+#' @import dplyr
+#'
+#' @export
 create_wioa_program_columns <- function(data) {
   data <- data |>
     mutate(adult = ifelse(p903 %in% 1:3, 1, NA),
@@ -16,14 +26,50 @@ create_wioa_program_columns <- function(data) {
 
 
 
-list_of_wioa_states <- function(){
-  state_list <- state_info$Alpha_code
-  return(state_list)
+#' Create a list of WIOA state abbreviations
+#'
+#' This function creates a vector that lists all the state abbreviations (includes DC and PR). Territories can be included as well.
+#'
+#' @param include_territories A logical value that indicates if territories should be included in the list. The default is FALSE.
+#' @examples
+#'
+#' states <- list_of_wioa_states()
+#' all_eta_areas <- list_of_wioa_states(include_territories = TRUE)
+#'
+#' @import dplyr
+#'
+#' @export
+list_of_wioa_states <- function(include_territories = FALSE){
+
+  if (include_territories == TRUE) {
+    state_list <- state_info$Alpha_code
+    return(state_list)
+    state_list <- c(state_list, "AS", "GU", "MP", "VI")
+  } else {
+    state_info_temp <- state_info |>
+      filter(Status != "Territory")
+    state_list <- state_info_temp$Alpha_code
+    return(state_list)
+  }
+
 }
 
 
 
-
+#' Format a column with zip codes
+#'
+#' This function formats zip code columns to have 5 characters. It pads the zip code with zeros if it has less than 5 characters.
+#'
+#' @param data The data frame that contains the zip code column.
+#' @param zip_column The name of the zip code column in the data frame.
+#' @examples
+#'
+#' df <- format_zip_code(df, zip_column = "zip_code")
+#'
+#' @import dplyr
+#' @import stringr
+#'
+#' @export
 format_zip_code <- function (data, zip_column) {
 
   data <- data |>
@@ -37,7 +83,23 @@ format_zip_code <- function (data, zip_column) {
 
 
 
-
+#' Add columns with state identification information
+#'
+#' This function adds colums with state identification information to a data frame. The function identifies the source column as the State ID, State FIPS code, or State full name. It then adds a column with the State Alpha code, Numeric code, or full name to the data frame.
+#'
+#' @param data The data frame you want to add the columns to.
+#' @param source_column The name of the source column that contains the state identification information.
+#' @param state_id_type The type of state identification information in the source column. It can be "id", "name", or "fips".
+#' @param column_name The name of the column you want to add to the data frame.
+#' @param state_data The data frame that contains the state identification information. The default is the state_info dataframe this is part of the opdR package.
+#' @examples
+#'
+#' df <- df |> add_state_information(source_column = "state", state_id_type = "id", column_name = "state_abbreviation")
+#'
+#' @import dplyr
+#' @import stringr
+#'
+#' @export
 add_state_information <- function(data, source_column, state_id_type, column_name, state_data = state_info) {
 
   state_data <- state_data |>
@@ -114,7 +176,19 @@ add_state_information <- function(data, source_column, state_id_type, column_nam
 
 
 
-
+#' Consolidate the reporting state column
+#'
+#' This function consolidates the reporting state column in the data frame. It can be needed because the column that identifies the reporting state differs by the program year of the data. The function checks the program year and consolidates the reporting state column to a single column. The function drops the p3000 and p4000 columns if they are present.
+#'
+#' @param data The data frame you want to consolidate the reporting state column in.
+#' @param program_year The program year of the data.
+#' @examples
+#'
+#' df <- consolidate_reporting_state_column(df, program_year = 2021)
+#'
+#' @import dplyr
+#'
+#' @export
 consolidate_reporting_state_column <- function(data, program_year) {
   py <- as.numeric(program_year)
 
@@ -149,7 +223,19 @@ consolidate_reporting_state_column <- function(data, program_year) {
 
 
 
-
+#' Add columns with dates relevant to the WIOA outcome types
+#'
+#' This function adds columns with dates relevant to the WIOA outcome types. The function adds columns with the program year start and end dates, the quarter 2 start and end dates, the quarter 4 start and end dates, and the quarter 4 roll forward start date.
+#'
+#' @param program_year The program year of the data.
+#' @examples
+#'
+#' df <- add_outcome_type_dates(program_year = 2021)
+#'
+#' @import dplyr
+#' @import lubridate
+#'
+#' @export
 add_outcome_type_dates <- function(program_year) {
 
   py <- as.numeric(program_year)
@@ -170,8 +256,23 @@ add_outcome_type_dates <- function(program_year) {
 }
 
 
-
-generate_program_outcomes <- function(df, period_start, period_end, msg_restricted = FALSE) {
+#' Generate WIOA outcomes
+#'
+#' This function generates WIOA outcomes based on the data provided. The function creates columns that indicate if the participant received a credential, entered employment, retained employment, and received a measurable skill gain. For MST, the function can be used to generate outcomes for all participants in the data or only for participants that are included per the official rules used to calculate the MSG performance indicator in WIOA.
+#'
+#' @param df The data frame that contains the data you want to generate outcomes for.
+#' @param period_start The start date of the period you want to generate outcomes for.
+#' @param period_end The end date of the period you want to generate outcomes for.
+#' @param msg_restricted A logical value that indicates if the function should generate outcomes for all participants or only for participants that are included per the official rules used to calculate the MSG performance indicator in WIOA. The default is FALSE.
+#' @examples
+#'
+#' df <- generate_wioa_outcomes(df, period_start = ymd("2021-07-01"), period_end = ymd("2022-06-30"))
+#'
+#' @import dplyr
+#' @import lubridate
+#'
+#' @export
+generate_wioa_outcomes <- function(df, period_start, period_end, msg_restricted = FALSE) {
 
   df <- df
   cat("\nGenerating outcomes...")
@@ -263,8 +364,19 @@ generate_program_outcomes <- function(df, period_start, period_end, msg_restrict
 }
 
 
-
-add_general_services_received <- function(data) {
+#' Add general WIOA services received by the participants
+#'
+#' This function adds columns that indicate the high-level services received by the participant. The function creates columns for basic career services, individualized career services, and training services. The function also creates columns for work experience, youth work experience, supportive services, financial literacy, and follow-up services.
+#'
+#' @param data The data frame you want to add the columns to. It should include the columns p1003, p1200, p1300, p1300, p1310, p1315, p1203, p1405, p1409, p1206, and p1412.
+#' @examples
+#'
+#' df <- add_general_wioa_services(df)
+#'
+#' @import dplyr
+#'
+#' @export
+add_general_wioa_services <- function(data) {
 
   data <- data |>
     mutate(bcsvc = ifelse(!is.na(p1003), 1, NA),

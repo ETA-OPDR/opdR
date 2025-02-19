@@ -21,7 +21,7 @@ copy_source_wipr_data(
 \item{py_quarter}{The quarter of the program year file you want. The default is 4 because it is the file you want to use for annual data.}
 }
 \description{
-This function copies a WIPR quarterly data file from the S drive to a local directory, unzips the file, reads in the csv file, saves the file as a parquet file, and then copies the parquet file to the related SharePoint location.
+This function copies a WIPR quarterly data file from the S drive to a local directory, unzips the file, reads in the csv file, and saves the file as a parquet file.
 }
 \examples{
 

@@ -51,7 +51,8 @@ West Virginia,WV,54,State; counties,2
 Wisconsin,WI,55,State; counties,5
 Wyoming,WY,56,State; counties,4
 Puerto Rico,PR,72,Federal district[4],1
-America Samoa,AS,60,Territory,7
-Guam,GU,66,Territory,7
-Northern Mariana Islands,MP,69,Territory,7
-U.S. Virgin Islands,VI,78,Territory,7
+America Samoa,AS,60,Territory,6
+Guam,GU,66,Territory,6
+Northern Mariana Islands,MP,69,Territory,6
+U.S. Virgin Islands,VI,78,Territory,1
+Palau,PW,70,Territory,6

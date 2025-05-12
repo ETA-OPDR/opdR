@@ -87,7 +87,7 @@ wipr_table_name <- function(program_year, quarter){
 #'
 #' data <- data %>% change_wips_columns(., wips_con = con)
 #'
-#' @import dpyr
+#' @import dplyr
 #' @import RPostgres
 #'
 #' @export

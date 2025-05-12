@@ -5,6 +5,7 @@
 #' This function creates columns for each WIOA program (Adult, Dislocated Worker, Youth, and Wagner-Peyser) and indicates if the person is in the program based on the values in the p903, p904, p905, and p918 columns.
 #'
 #' @param data The data frame you want to add the columns to. It should include the columns p903, p904, p905, and p918.
+#' @param program The defaul is "wioa" which will add columns of the 2 core programs. Option"jc" will add a job corps column.
 #' @examples
 #'
 #' df <- create_wioa_program_columns(df)

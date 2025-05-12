@@ -312,8 +312,8 @@ generate_wioa_outcomes <- function(df, period_start, period_end, msg_restricted 
            eeq2 = ifelse(p1602 %in% 1:3 | p1900 %in% 1:3, 1, 0),
            erq4 = ifelse(p1606 %in% 1:3, 1, 0),
            eeq4 = ifelse(p1606 %in% 1:3 | p1901 %in% 1:3, 1, 0)) %>%
-    mutate(erq2 = ifelse(program == "youth", eeq2, erq2),
-           erq4 = ifelse(program == "youth", eeq4, erq4)) %>%
+    mutate(erq2 = ifelse(program %in% c("youth", "jc"), eeq2, erq2),
+           erq4 = ifelse(program %in% c("youth", "jc"), eeq4, erq4)) %>%
     mutate(meq2 = ifelse(erq2 == 1 & (p1704 > 0 & p1704 <= 999999.99), p1704, NA),
            cred = case_when(
              ((cred_den == 1) &

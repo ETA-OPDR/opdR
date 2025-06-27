@@ -5,7 +5,7 @@
 #' This function creates columns for each WIOA program (Adult, Dislocated Worker, Youth, and Wagner-Peyser) and indicates if the person is in the program based on the values in the p903, p904, p905, and p918 columns.
 #'
 #' @param data The data frame you want to add the columns to. It should include the columns p903, p904, p905, and p918.
-#' @param program The defaul is "wioa" which will add columns of the 2 core programs. Option"jc" will add a job corps column.
+#' @param program The default is "wioa" which will add columns of the 2 core programs. Option"jc" will add a job corps column.
 #' @examples
 #'
 #' df <- create_wioa_program_columns(df)
@@ -314,13 +314,18 @@ generate_wioa_outcomes <- function(df, period_start, period_end, msg_restricted 
 
 
   df <- df %>%
-        mutate(erq2 = ifelse(p1602 %in% 1:3, 1, 0),
+        mutate(erq1 = ifelse(p1600 %in% 1:3, 1, 0),
+           erq2 = ifelse(p1602 %in% 1:3, 1, 0),
            eeq2 = ifelse(p1602 %in% 1:3 | p1900 %in% 1:3, 1, 0),
+           erq3 = ifelse(p1604 %in% 1:3, 1, 0),
            erq4 = ifelse(p1606 %in% 1:3, 1, 0),
            eeq4 = ifelse(p1606 %in% 1:3 | p1901 %in% 1:3, 1, 0)) %>%
     mutate(erq2 = ifelse(program %in% c("youth", "jc"), eeq2, erq2),
            erq4 = ifelse(program %in% c("youth", "jc"), eeq4, erq4)) %>%
-    mutate(meq2 = ifelse(erq2 == 1 & (p1704 > 0 & p1704 <= 999999.99), p1704, NA),
+    mutate(meq1 = ifelse(erq1 == 1 & (p1703 > 0 & p1703 <= 999999.99), p1703, NA),
+           meq2 = ifelse(erq2 == 1 & (p1704 > 0 & p1704 <= 999999.99), p1704, NA),
+           meq3 = ifelse(erq3 == 1 & (p1705 > 0 & p1705 <= 999999.99), p1705, NA),
+           meq4 = ifelse(erq4 == 1 & (p1706 > 0 & p1706 <= 999999.99), p1706, NA),
            cred = case_when(
              ((cred_den == 1) &
                 (((!is.na(p1801) & (p1801 - p901 <= years(1)) & p1800 %in% 2:7) |

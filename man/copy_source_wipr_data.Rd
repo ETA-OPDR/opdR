@@ -8,7 +8,8 @@ copy_source_wipr_data(
   program_years,
   destination_dir = here::here("data", "wipr"),
   source_type = "clean",
-  py_quarter = 4
+  py_quarter = 4,
+  file_suffix = ""
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ copy_source_wipr_data(
 \item{source_type}{The type of WIPR file you want to copy. The default is "clean" which is the SPRA file. The other option is "raw" which is the WIPS file.}
 
 \item{py_quarter}{The quarter of the program year file you want. The default is 4 because it is the file you want to use for annual data.}
+
+\item{file_suffix}{An additional string can be included which adds to the end of the default file name}
 }
 \description{
 This function copies a WIPR quarterly data file from the S drive to a local directory, unzips the file, reads in the csv file, and saves the file as a parquet file.

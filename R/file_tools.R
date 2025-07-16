@@ -217,6 +217,7 @@ copy_from_SP <- function(file_path, office, project_location = "mirror") {
 #' @param destination_dir The path of the directory you want to copy the files to. The default is the data/wipr directory in the project.
 #' @param source_type The type of WIPR file you want to copy. The default is "clean" which is the SPRA file. The other option is "raw" which is the WIPS file.
 #' @param py_quarter The quarter of the program year file you want. The default is 4 because it is the file you want to use for annual data.
+#' @param file_suffix An additional string can be included which adds to the end of the default file name
 #' @examples
 #'
 #' copy_source_wipr_data(program_years = 2021)
@@ -227,7 +228,8 @@ copy_from_SP <- function(file_path, office, project_location = "mirror") {
 #' @import arrow
 #'
 #' @export
-copy_source_wipr_data <- function(program_years, destination_dir = here::here("data", "wipr"), source_type = "clean", py_quarter = 4, file_suffix = "") {
+copy_source_wipr_data <- function(program_years, destination_dir = here::here("data", "wipr"),
+                                  source_type = "clean", py_quarter = 4, file_suffix = "") {
 
   output_dir <- destination_dir
   if (!dir.exists(output_dir)){

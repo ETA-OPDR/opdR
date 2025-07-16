@@ -227,7 +227,7 @@ copy_from_SP <- function(file_path, office, project_location = "mirror") {
 #' @import arrow
 #'
 #' @export
-copy_source_wipr_data <- function(program_years, destination_dir = here::here("data", "wipr"), source_type = "clean", py_quarter = 4) {
+copy_source_wipr_data <- function(program_years, destination_dir = here::here("data", "wipr"), source_type = "clean", py_quarter = 4, file_suffix = "") {
 
   output_dir <- destination_dir
   if (!dir.exists(output_dir)){
@@ -265,7 +265,7 @@ copy_source_wipr_data <- function(program_years, destination_dir = here::here("d
     wipr <- data.table::fread(py_file_csv) |>
       as_tibble()
 
-    export_parquet_file <- paste0(output_dir, "/PY", program_year, ".parquet")
+    export_parquet_file <- paste0(output_dir, "/PY", program_year, file_suffix, ".parquet")
     write_parquet(wipr, export_parquet_file)
     cat("\nSaved parquet file for PY", program_year )
 

@@ -260,7 +260,7 @@ copy_source_wipr_data <- function(program_years, destination_dir = here::here("d
     cat("\nUnzipped file for PY", program_year )
 
     # Read in the csv file using data.table
-    wipr_filename <- paste0("PY", program_year, "Q4_SPRA_RAW.csv")
+    wipr_filename <- paste0("PY", program_year, "Q", py_quarter, "_SPRA_RAW.csv")
     py_file_csv <- paste0(output_dir, "/", wipr_filename)
     wipr <- data.table::fread(py_file_csv) |>
       as_tibble()

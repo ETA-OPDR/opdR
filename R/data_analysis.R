@@ -1,5 +1,77 @@
 
 
+
+#' Normalize a Column Using Min Max
+#'
+#' This function will normalize a columns values using the min-max algorithm so that all values are between 0 and 1.
+#' All the values in the column are considered unless a group_by is applied prior so that each groups is normalized separately.
+#'
+#' @param x The column that you want to normalize.
+#' @examples
+#'
+#' data <- data %>%  mutate(normalized_value = convert_min_max(value))
+#'
+#'
+#' @export
+convert_min_max <-function(x){
+  (x - min(x, na.rm = TRUE))/(max(x, na.rm = TRUE)-min(x, na.rm = TRUE))
+}
+
+
+
+
+#' Case When Function with Factor Levels
+#'
+#' This function operates the same as the dpyr::case_when function but adds factor levels as well.
+#' The factor levels will be in the order of the case_when steps.
+#'
+#' @examples
+#'
+#'   data <- data |>
+#'       mutate(new_col = fct_case_when(
+#'       col == 1 ~ "first",
+#'       col == 2 ~ "second",
+#'       col == 3 ~ "third"
+#'       ))
+#'
+#' @import dplyr
+#'
+#' @export
+fct_case_when <- function(...) {
+  args <- as.list(match.call())
+  levels <- sapply(args[-1], function(f) f[[3]])  # extract RHS of formula
+  levels <- levels[!is.na(levels)]
+  factor(dplyr::case_when(...), levels=levels)
+}
+
+
+
+
+#' Fill the Dataframe with Columns if Missing
+#'
+#' This function will fill a dataframe with columns if those columns are not in the dataframe.
+#' The added columns will have NA values for all the rows.
+#' This functionality is useful when working with multiple dataframes that may have different columns but some columns are needed to avoid errors.
+#'
+#' @param data The data frame you want to modify by checking if the columns are there and adding if not.
+#' @param cname The column names you want to check for. This can be a single column name or a vector of multiple column names.
+#' @examples
+#'
+#' cnames <- c("p3000", "p4000")
+#' data <- data %>% fill_missing_cols(cname = cnames)
+#'
+#'
+#' @export
+fill_missing_cols <- function(data, cname) {
+  add <-cname[!cname%in%names(data)]
+
+  if(length(add)!=0) data[add] <- NA
+  data
+}
+
+
+
+
 #' Create WIOA program columns
 #'
 #' This function creates columns for each WIOA program (Adult, Dislocated Worker, Youth, and Wagner-Peyser) and indicates if the person is in the program based on the values in the p903, p904, p905, and p918 columns.
@@ -208,17 +280,10 @@ consolidate_reporting_state_column <- function(data, program_year) {
     data <- data
   }
 
-  fncols <- function(data, cname) {
-    add <-cname[!cname%in%names(data)]
-
-    if(length(add)!=0) data[add] <- NA
-    data
-  }
-
   cnames <- c("p3000", "p4000")
 
   data <- data %>%
-    fncols(cname = cnames) |>
+    fill_missing_cols(cname = cnames) |>
     select(-p3000, -p4000)
 
   cat("\nThe 'state' column now indicates the reporting state. p3000 and/or p4000 were dropped if present.")

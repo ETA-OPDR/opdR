@@ -11,6 +11,7 @@
 #' con <- connect_to_WIPS(wips_password = wips_user_password)
 #'
 #' @import RPostgres
+#' @import DBI
 #'
 #' @export
 connect_to_WIPS <- function(wips_password){

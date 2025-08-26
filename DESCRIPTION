@@ -27,5 +27,7 @@ Imports:
     tools,
     arrow,
     data.table,
-    rmarkdown
+    rmarkdown,
+    RPostgres,
+    DBI
 RoxygenNote: 7.3.2

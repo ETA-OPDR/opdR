@@ -322,6 +322,8 @@ add_outcome_type_dates <- function(program_year) {
   q4_end <<- ceiling_date((q2_end %m-% months(6, abbreviate = FALSE)),"month") - days(1)
   q4_start <<- q2_start %m-% months(6, abbreviate = FALSE)
   q4_roll4_start <<- q2_start %m-% months(6, abbreviate = FALSE) %m-% months(9, abbreviate = FALSE)
+  exit_start <<- py_start %m-% months(3, abbreviate = FALSE)
+  exit_end <<- py_end %m-% months(3, abbreviate = FALSE) + days(1)
 
 
 }

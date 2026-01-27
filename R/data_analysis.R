@@ -395,14 +395,18 @@ generate_wioa_outcomes <- function(df, period_start, period_end, msg_restricted 
            meq4 = ifelse(erq4 == 1 & (p1706 > 0 & p1706 <= 999999.99), p1706, NA),
            cred = case_when(
              ((cred_den == 1) &
-                (((!is.na(p1801) & (p1801 - p901 <= years(1)) & p1800 %in% 2:7) |
+                  (((!is.na(p1801) & (p1801 - p901 <= years(1)) & p1800 %in% 2:7) |
                     (!is.na(p1803) & (p1803 - p901 <= years(1)) & p1802 %in% 2:7) |
-                    (!is.na(p1805) & (p1805 - p901 <= years(1)) & p1804 %in% 2:7)) |
+                    (!is.na(p1805) & (p1805 - p901 <= years(1)) & p1804 %in% 2:7)
+                   ) |
                    (((!is.na(p1801) & (p1801 - p901 <= years(1)) & p1800 == 1) |
-                       (!is.na(p1803) & (p1803 - p901 <= years(1)) & p1802 == 1) |
-                       (!is.na(p1805) & (p1805 - p901 <= years(1)) & p1804 == 1)) &
-                      ((!is.na(p1406) & (p1406 - p901 <= years(1))) |(p1600 %in% 1:3) |
-                         (p1602 %in% 1:3) | (p1604 %in% 1:3) | (p1606 %in% 1:3))))) ~ 1,
+                    (!is.na(p1803) & (p1803 - p901 <= years(1)) & p1802 == 1) |
+                    (!is.na(p1805) & (p1805 - p901 <= years(1)) & p1804 == 1)
+                     ) &
+                    ((!is.na(p1406) & (p1406 - p901 <= years(1))) |(p1600 %in% 1:3) |
+                    (p1602 %in% 1:3) | (p1604 %in% 1:3) | (p1606 %in% 1:3))
+                   )
+                )) ~ 1,
              cred_den == 1 ~ 0,
              is.na(cred_den) ~ NA_real_))
 
@@ -410,9 +414,9 @@ generate_wioa_outcomes <- function(df, period_start, period_end, msg_restricted 
     df <- df |>
       mutate(msg = case_when(
         msg_den == 1 &
-            ((p1801 >= {{period_start}} & p1801 <= {{period_end}}) & p1800 == 1 |
-             (p1803 >= {{period_start}} & p1803 <= {{period_end}}) & p1802 == 1 |
-             (p1805 >= {{period_start}} & p1805 <= {{period_end}}) & p1804 == 1 |
+            (((p1801 >= {{period_start}} & p1801 <= {{period_end}}) & p1800 == 1) |
+             ((p1803 >= {{period_start}} & p1803 <= {{period_end}}) & p1802 == 1) |
+             ((p1805 >= {{period_start}} & p1805 <= {{period_end}}) & p1804 == 1) |
              (p1806 >= {{period_start}} & p1806 <= {{period_end}}) |
              (p1807 >= {{period_start}} & p1807 <= {{period_end}}) |
              (p1808 >= {{period_start}} & p1808 <= {{period_end}}) |
@@ -424,9 +428,9 @@ generate_wioa_outcomes <- function(df, period_start, period_end, msg_restricted 
     df <- df |>
       mutate(msg = case_when(
         msg_den == 1 & (
-          !is.na(p1801) & p1800 == 1 |
-          !is.na(p1803) & p1802 == 1 |
-          !is.na(p1805) & p1804 == 1 |
+          (!is.na(p1801) & p1800 == 1) |
+          (!is.na(p1803) & p1802 == 1) |
+          (!is.na(p1805) & p1804 == 1) |
           !is.na(p1806) |
           !is.na(p1807) |
           !is.na(p1808) |

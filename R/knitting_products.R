@@ -150,7 +150,7 @@ render_state_documents = function(product, product_template, template_dir, year,
 # This function generates all the state performance assessments.
 render_state_assessments = function(product_template, template_dir, year, select_states = "all", exclude_states = "none", copy_file = TRUE, custom_write_dir = FALSE) {
 
-  states <- state_info |>
+  states <- opdR::state_info |>
     rename(state_name = Name, state_code = Alpha_code)
 
   if (select_states == "all") {

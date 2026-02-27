@@ -4,17 +4,13 @@
 \alias{connect_to_WIPS}
 \title{Connect to WIPS}
 \usage{
-connect_to_WIPS(wips_password)
-}
-\arguments{
-\item{wips_password}{The users WIPS password.}
+connect_to_WIPS()
 }
 \description{
 This function creates a connection to the WIPS redshift data and stores that connection to the object name assigned.
 }
 \examples{
 
-wips_user_pasword <- "mypassword"
-con <- connect_to_WIPS(wips_password = wips_user_password)
+con <- connect_to_WIPS()
 
 }
